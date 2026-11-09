@@ -3,75 +3,54 @@ import Logo from './Logo.astro';
 
 const links = [
   { href: '/#losningar', label: 'Lösningar' },
-  { href: '/#sa-funkar-det', label: 'Så går det till' },
-  { href: '/#kunder', label: 'Kunder' },
-  { href: '/#om-oss', label: 'Om oss' },
-  { href: '/#sakerhet', label: 'Säkerhet' },
+  { href: '/#kalkyl', label: 'Räkna själv' },
   { href: '/#priser', label: 'Priser' },
-  { href: '/#fragor', label: 'Vanliga frågor' },
+  { href: '/#om-oss', label: 'Om oss' },
+  { href: '/#fragor', label: 'Frågor' },
 ];
 ---
 
 <header
   data-header
-  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color] duration-300 data-[scrolled]:border-line data-[scrolled]:bg-white/90 data-[scrolled]:backdrop-blur-md"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-white/85 backdrop-blur-md transition-colors duration-300 data-[scrolled]:border-line"
 >
-  <div class="wrap flex h-16 items-center justify-between">
-    <a href="/" aria-label="Sandside, till toppen av sidan"><Logo /></a>
+  <div class="wrap flex h-16 items-center justify-between gap-6">
+    <a href="/" aria-label="Sandside, till startsidan"><Logo /></a>
+
+    <nav aria-label="Huvudmeny" class="hidden md:block">
+      <ul class="flex items-center gap-7 text-[15px] text-ink/75">
+        {links.map((l) => <li><a href={l.href} class="transition-colors hover:text-ink">{l.label}</a></li>)}
+      </ul>
+    </nav>
 
     <div class="flex items-center gap-2">
+      <a href="/#boka" class="inline-flex h-10 items-center rounded-full bg-ink px-5 text-[15px] font-medium text-white transition-colors hover:bg-black">
+        Boka möte
+      </a>
       <button
         type="button"
         data-menu-btn
         aria-expanded="false"
-        aria-controls="meny"
+        aria-controls="mobilmeny"
         aria-label="Öppna meny"
-        class="group grid size-10 place-items-center rounded-[6px] border border-line bg-white transition-colors hover:border-ink"
+        class="group grid size-10 place-items-center rounded-full border border-line md:hidden"
       >
-        <span class="relative block h-3 w-4" aria-hidden="true">
-          <span class="absolute left-0 top-0 h-[1.5px] w-4 bg-ink transition-transform duration-300 group-aria-expanded:translate-y-[5px] group-aria-expanded:rotate-45"></span>
-          <span class="absolute left-0 top-[5px] h-[1.5px] w-4 bg-ink transition-opacity duration-200 group-aria-expanded:opacity-0"></span>
-          <span class="absolute left-0 top-[10px] h-[1.5px] w-4 bg-ink transition-transform duration-300 group-aria-expanded:-translate-y-[5px] group-aria-expanded:-rotate-45"></span>
+        <span class="relative block h-2.5 w-4" aria-hidden="true">
+          <span class="absolute left-0 top-0 h-[1.5px] w-4 bg-ink transition-transform duration-300 group-aria-expanded:translate-y-[4.5px] group-aria-expanded:rotate-45"></span>
+          <span class="absolute bottom-0 left-0 h-[1.5px] w-4 bg-ink transition-transform duration-300 group-aria-expanded:-translate-y-[4.5px] group-aria-expanded:-rotate-45"></span>
         </span>
       </button>
-      <a
-        href="/#boka"
-        class="inline-flex h-10 items-center rounded-[6px] border border-ink bg-white px-4 text-sm font-medium transition-colors hover:bg-ink hover:text-white"
-      >
-        Boka demo
-      </a>
     </div>
   </div>
 
   <nav
-    id="meny"
+    id="mobilmeny"
     data-menu
-    aria-label="Huvudmeny"
-    class="pointer-events-none invisible absolute right-5 top-[68px] w-[min(360px,calc(100vw-40px))] translate-y-2 rounded-[10px] border border-line bg-white p-3 opacity-0 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.25)] transition-all duration-300 data-[open]:pointer-events-auto data-[open]:visible data-[open]:translate-y-0 data-[open]:opacity-100 md:right-10"
+    aria-label="Mobilmeny"
+    class="pointer-events-none invisible absolute inset-x-0 top-16 border-b border-line bg-white opacity-0 transition-opacity duration-200 data-[open]:pointer-events-auto data-[open]:visible data-[open]:opacity-100 md:hidden"
   >
-    <ul>
-      {
-        links.map((l, i) => (
-          <li>
-            <a
-              href={l.href}
-              class="group flex items-baseline gap-4 rounded-[6px] px-3 py-3 transition-colors hover:bg-sand"
-            >
-              <span class="font-mono text-[11px] text-muted group-hover:text-sun">/{String(i + 1).padStart(2, '0')}</span>
-              <span class="text-[22px] font-bold tracking-[-0.03em]" data-scramble-hover>{l.label}</span>
-            </a>
-          </li>
-        ))
-      }
+    <ul class="wrap py-3">
+      {links.map((l) => <li><a href={l.href} class="block border-b border-line py-4 text-[20px] font-medium last:border-0">{l.label}</a></li>)}
     </ul>
-    <a
-      href="/#boka"
-      class="mt-2 flex items-center justify-between rounded-[6px] bg-ink px-4 py-3.5 text-[15px] font-medium text-white"
-    >
-      Boka kostnadsfri demo
-      <span class="grid size-8 place-items-center rounded-[4px] bg-sun" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"></path></svg>
-      </span>
-    </a>
   </nav>
 </header>

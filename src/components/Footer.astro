@@ -6,53 +6,51 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="on-dark overflow-hidden bg-ink text-white">
-  <div class="wrap pt-20 md:pt-28">
-    <div class="flex flex-col gap-8 border-b border-white/15 pb-14 md:flex-row md:items-end md:justify-between">
-      <h2 class="display max-w-[14ch] text-[40px] sm:text-[56px] lg:text-[64px]">Dags att ta ledigt på riktigt?</h2>
-      <Button href="/#boka" variant="light" class="w-full max-w-[360px]">Boka kostnadsfri demo</Button>
+  <div class="wrap relative pt-20 md:pt-28">
+    <!-- Solen som går ned bakom horisonten, samma märke som i toppen -->
+    <div aria-hidden="true" class="pointer-events-none absolute -top-px right-5 h-[120px] w-[240px] overflow-hidden md:right-10">
+      <div class="absolute left-0 top-0 size-[240px] -translate-y-1/2 rounded-full bg-sun"></div>
     </div>
 
-    <div class="grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-4">
+    <div class="flex flex-col gap-8 pb-16 md:flex-row md:items-end md:justify-between">
+      <h2 class="h2 max-w-[18ch]">Vill ni slippa svara på samma frågor varje dag?</h2>
+      <Button href="/#boka" variant="inverted">Boka ett möte</Button>
+    </div>
+
+    <div class="grid gap-10 border-t border-white/15 py-14 sm:grid-cols-2 md:grid-cols-4">
       <div>
         <Logo inverted />
-        <p class="mt-4 max-w-[28ch] text-[15px] leading-relaxed text-white/55">Chattbottar, hemsidor och automatiska flöden för småföretag.</p>
+        <p class="mt-4 max-w-[28ch] text-[15px] text-white/55">Chattbottar, hemsidor och automatiska flöden för småföretag.</p>
       </div>
       <div>
-        <p class="label">Lösningar</p>
+        <p class="eyebrow">Lösningar</p>
         <ul class="mt-4 space-y-2.5 text-[15px] text-white/80">
-          <li><a href="/#losningar" class="hover:text-sun">Chattbottar</a></li>
-          <li><a href="/#losningar" class="hover:text-sun">Hemsidor och flöden</a></li>
-          <li><a href="/#losningar" class="hover:text-sun">AI-receptionist</a></li>
-          <li><a href="/#priser" class="hover:text-sun">Priser</a></li>
+          <li><a href="/#losningar" class="hover:text-white">Chattbottar</a></li>
+          <li><a href="/#losningar" class="hover:text-white">AI-receptionist</a></li>
+          <li><a href="/#losningar" class="hover:text-white">Hemsidor och flöden</a></li>
+          <li><a href="/#priser" class="hover:text-white">Priser</a></li>
         </ul>
       </div>
       <div>
-        <p class="label">Företaget</p>
+        <p class="eyebrow">Företaget</p>
         <ul class="mt-4 space-y-2.5 text-[15px] text-white/80">
-          <li><a href="/#om-oss" class="hover:text-sun">Om oss</a></li>
-          <li><a href="/#kunder" class="hover:text-sun">Kunder</a></li>
-          <li><a href="/#sakerhet" class="hover:text-sun">Säkerhet</a></li>
-          <li><a href="/#fragor" class="hover:text-sun">Vanliga frågor</a></li>
+          <li><a href="/#om-oss" class="hover:text-white">Om oss</a></li>
+          <li><a href="/#sakerhet" class="hover:text-white">Säkerhet</a></li>
+          <li><a href="/#fragor" class="hover:text-white">Vanliga frågor</a></li>
         </ul>
       </div>
       <div>
-        <p class="label">Kontakt</p>
+        <p class="eyebrow">Kontakt</p>
         <ul class="mt-4 space-y-2.5 text-[15px] text-white/80">
-          <li><a href={`mailto:${site.email}`} class="hover:text-sun">{site.email}</a></li>
-          <li><a href={telHref(site.salesPhone)} class="hover:text-sun">{site.salesPhone}</a></li>
+          <li><a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a></li>
+          <li><a href={telHref(site.salesPhone)} class="hover:text-white">{site.salesPhone}</a></li>
           <li class="text-white/55">{site.city}</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div class="relative select-none" aria-hidden="true">
-    <p class="wrap whitespace-nowrap text-[23vw] font-bold leading-[0.78] tracking-[-0.07em] text-white md:text-[21.5vw] xl:text-[270px]">
-      Sandside<span class="ml-[0.04em] inline-block size-[0.16em] rounded-full bg-sun align-baseline"></span>
-    </p>
-  </div>
-
-  <div class="wrap flex flex-col gap-2 border-t border-white/15 py-6 font-mono text-[11px] uppercase tracking-[0.04em] text-white/45 sm:flex-row sm:justify-between">
+  <div class="wrap flex flex-col gap-2 border-t border-white/15 py-6 text-[13px] text-white/45 sm:flex-row sm:justify-between">
     <span>© {year} {site.legalName} · Ett UF-företag inom Ung Företagsamhet</span>
     <a href="/integritetspolicy" class="hover:text-white">Integritetspolicy</a>
   </div>

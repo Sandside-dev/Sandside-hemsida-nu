@@ -1,48 +1,33 @@
 ---
 // Arbetsgången från affärsplanen, förenklad till fyra steg.
 const steps = [
-  {
-    title: 'Vi lyssnar',
-    text: 'Vi går igenom hur en vanlig vecka ser ut hos er och letar efter det som tar onödig tid.',
-  },
-  {
-    title: 'Ni får ett fast pris',
-    text: 'Vi gör upp om exakt vad vi ska bygga och vad det kostar innan vi börjar. Inga överraskningar.',
-  },
-  {
-    title: 'Vi bygger, ni testar',
-    text: 'Där det går bygger vi vidare på sådant vi redan har gjort. Sen testar ni lösningen med riktiga frågor.',
-  },
-  {
-    title: 'Leverans och uppföljning',
-    text: 'Vi visar vad lösningen kan och inte kan, lämnar en skriftlig instruktion och hör av oss efter en vecka.',
-  },
+  { title: 'Vi lyssnar', text: 'Vi går igenom hur en vanlig vecka ser ut hos er och letar efter det som tar onödig tid.' },
+  { title: 'Ni får ett fast pris', text: 'Vi gör upp om exakt vad vi ska bygga och vad det kostar innan vi börjar.' },
+  { title: 'Vi bygger, ni testar', text: 'Ni provar lösningen med riktiga frågor innan den används av era kunder.' },
+  { title: 'Leverans och uppföljning', text: 'Ni får en skriftlig instruktion, och vi hör av oss efter en vecka för att se att allt fungerar.' },
 ];
 ---
 
-<section id="sa-funkar-det" class="on-dark cut-tr bg-ink py-24 text-white [--cut:48px] md:py-36 md:[--cut:96px]">
+<section id="sa-funkar-det" class="section bg-sand">
   <div class="wrap">
-    <div class="grid items-end gap-6 md:grid-cols-12">
-      <div class="md:col-span-8">
-        <p class="label label-line" data-scramble>/ Så går det till</p>
-        <h2 class="display mt-1 max-w-[14ch] text-[44px] sm:text-6xl lg:text-[76px]">Fast pris innan vi börjar</h2>
-      </div>
-      <p class="text-[17px] leading-relaxed text-white/65 md:col-span-4 md:pb-2" data-reveal>
-        Ni testar lösningen innan vi lämnar över den. Och ni behöver inte kunna något om AI eller IT, vi förklarar
-        utan tekniska ord.
+    <div class="grid gap-6 md:grid-cols-12 md:items-end">
+      <h2 class="h2 md:col-span-6">Så går det till</h2>
+      <p class="lead md:col-span-6">
+        Ni behöver inte kunna något om AI eller IT. Vi förklarar utan tekniska ord, och det tar oftast en till några
+        veckor från första mötet.
       </p>
     </div>
 
-    <ol class="mt-14 grid gap-10 sm:grid-cols-2 md:mt-20 lg:grid-cols-4 lg:gap-6">
+    <ol class="relative mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <span class="absolute left-0 right-0 top-[15px] hidden h-px bg-ink/15 lg:block" aria-hidden="true"></span>
       {
         steps.map((s, i) => (
-          <li class="border-t border-white/15 pt-6" data-reveal style={`--d:${i * 100}ms`}>
-            <p class="flex items-baseline justify-between">
-              <span class="text-[64px] font-bold leading-none tracking-[-0.05em] md:text-[80px]">{String(i + 1).padStart(2, '0')}</span>
-              <span class="size-2.5 rounded-full bg-sun" />
-            </p>
-            <h3 class="mt-6 text-[20px] font-bold tracking-[-0.02em]">{s.title}</h3>
-            <p class="mt-2 max-w-[38ch] text-[16px] leading-relaxed text-white/65">{s.text}</p>
+          <li class="relative" data-reveal style={`--d:${i * 90}ms`}>
+            <span class:list={['relative grid size-8 place-items-center rounded-full text-[14px] font-semibold', i === 0 ? 'bg-sun text-white' : 'border border-ink/15 bg-sand text-ink']}>
+              {i + 1}
+            </span>
+            <h3 class="h3 mt-5">{s.title}</h3>
+            <p class="mt-2 max-w-[34ch] text-[16px] text-ink/70">{s.text}</p>
           </li>
         ))
       }

@@ -1,0 +1,51 @@
+---
+// Om oss: vilka vi är, vad som pågår och vad alla kunder får.
+import { site, team } from '../data/site';
+---
+
+<section id="om-oss" class="on-dark section bg-ink text-white">
+  <div class="wrap">
+    <div class="grid gap-10 lg:grid-cols-12 [&>*]:min-w-0">
+      <div class="lg:col-span-5">
+        <h2 class="h2">Vi som driver Sandside</h2>
+        <p class="lead mt-5">
+          {site.legalName} drivs av fem elever i Göteborg inom Ung Företagsamhet. Vi är nya, så vi har inga färdiga
+          kundcase att visa än, och vi tänker inte hitta på några. Vi kan de nya AI-verktygen och har låga kostnader,
+          så ni slipper byråpriser.
+        </p>
+        <div class="mt-8 flex items-start gap-3 rounded-[14px] border border-white/15 px-4 py-3.5">
+          <span class="mt-2 size-2 shrink-0 rounded-full bg-sun"></span>
+          <p class="text-[15px] leading-snug text-white/80">
+            <span class="font-semibold text-white">{site.current.label}:</span>
+            {site.current.text}
+          </p>
+        </div>
+      </div>
+
+      <ul class="lg:col-span-7 lg:pl-8">
+        {
+          team.map((m, i) => (
+            <li class="grid gap-1 border-t border-white/15 py-5 last:border-b sm:grid-cols-[200px_1fr] sm:gap-6" data-reveal style={`--d:${i * 60}ms`}>
+              <div>
+                <p class="text-[18px] font-medium">{m.name}</p>
+                <p class="text-[14px] text-white/55">{m.role}</p>
+              </div>
+              <p class="text-[16px] text-white/70">{m.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="mt-20 grid gap-8 border-t border-white/15 pt-10 md:grid-cols-3">
+      {
+        site.promises.map((p, i) => (
+          <div data-reveal style={`--d:${i * 80}ms`}>
+            <p class="text-[14px] font-medium text-sun">{['Före', 'Under', 'Efter'][i]}</p>
+            <p class="mt-2 text-[18px] leading-snug">{p}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

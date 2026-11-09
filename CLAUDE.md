@@ -1,6 +1,8 @@
 # Sandside – hemsida
 
-Sandside UF är ett UF-företag (Ung Företagsamhet) i Göteborg som drivs av fem elever. Det här är företagets hemsida: en startsida med flera sektioner, byggd med Astro, Tailwind, GSAP och three.js.
+Sandside UF är ett UF-företag (Ung Företagsamhet) i Göteborg som drivs av fem elever. Det här är företagets hemsida: en startsida med flera sektioner, byggd med Astro, Tailwind och GSAP.
+
+Versioner sparas i git: `version-1` är första versionen (3D, Smartsvar-stil). Version 2 bygger på analysen i `docs/analys-version-2.md` – läs den innan du ändrar designen.
 
 ## Företaget (från affärsplanen – håll texterna i linje med detta)
 
@@ -18,11 +20,11 @@ Starta lokalt: `npm run dev` (öppnas på http://localhost:4321). Bygg: `npm run
 
 ## Var saker finns
 
-- `src/data/site.ts` – **all företagsfakta**: telefon, mejl, kontaktperson, priser, pilotkundserbjudande, fakta i rullande listan. Ändra här först.
-- `src/styles/global.css` – färger, typsnitt och återanvända klasser (`.display`, `.label`, `.cut-tr`, `.cut-br`).
-- `src/components/` – en fil per sektion, i samma ordning som på sidan: Header, Hero, Problem, Solutions, Process, Pilot, Security, Pricing, Booking, Faq, Footer, ChatWidget.
-- `src/scripts/hero3d.ts` – 3D-solen och vågorna i toppen. `icon3d.ts` – 3D-ikonerna på lösningskorten. `three-stage.ts` – gemensam 3D-uppsättning och material.
-- `src/scripts/main.ts` – meny, inglidning (`data-reveal`) och scramble-text (`data-scramble`).
+- `src/data/site.ts` – **all företagsfakta**: telefon, mejl, kontaktperson, team, priser, löften. Ändra här först.
+- `src/data/demos.ts` – exempelsamtalen i chattdemon högst upp (en per bransch).
+- `src/styles/global.css` – färger, typsnitt och typografiklasser (`.h1`, `.h2`, `.h3`, `.lead`, `.eyebrow`, `.section`).
+- `src/components/` – en fil per avsnitt, i samma ordning som på sidan: Header, Hero (+ ChatDemo), Problem, Solutions, Calculator, Pricing, Process, About, Security, Booking, Faq, Footer, ChatWidget.
+- `src/scripts/main.ts` – sidhuvud, mobilmeny och inglidning (`data-reveal`).
 
 ## Ton i texterna
 
@@ -33,23 +35,28 @@ Starta lokalt: `npm run dev` (öppnas på http://localhost:4321). Bygg: `npm run
 - Nämn inga kunder med namn förrän Sandside uttryckligen sagt att det är okej (just nu: "en trafikskola").
 - **Hitta aldrig på** kunder, recensioner, kundloggor, statistik eller certifieringar. Saknas något: skriv `ÄNDRA:` i en kommentar och använd en platshållare.
 
-## Design
+## Design (version 2)
 
-- Färger: vitt, svart (`ink`), varma ljusa ytor (`sand`) och orange (`sun`) **bara som detalj**: knappfyrkanter, prickar, etiketter, solen.
-- Typsnitt: Satoshi (rubriker och brödtext), JetBrains Mono (små etiketter). Båda ligger lokalt – länka inte in Google Fonts.
-- Rubriker: `.display` (fet, tät, negativ bokstavsavstånd). Sektionsetikett ovanför: `<p class="label label-line" data-scramble>/ Namn</p>`.
-- Knappar: `Button.astro` (svart med orange pilruta, eller vit variant).
-- Avskurna hörn (`.cut-tr`, `.cut-br`) på stora ytor – ett återkommande drag.
-- Inga gradienter i bakgrunder, inga glaseffekter, inga emoji-ikoner, inga stockfoton.
+Målet är att sidan ska kännas som ett riktigt företag, inte som en AI-mall. Se `docs/analys-version-2.md`.
+
+- **Visa produkten, inte abstrakta bilder.** Chattdemon, samtalssammanfattningen och hemsidebilden är riktiga gränssnitt i HTML. Inga 3D-objekt, inga blobbar, inga ikoner i rundade rutor.
+- **Typografi:** Schibsted Grotesk (variabel, lokal via fontsource) i vikt 500 för rubriker. `.h1` bara i hero, `.h2` för avsnitt (ca 44 px). Gör inte rubriker större eller fetare.
+- **Rubriker är vanliga meningar** ("Vad det kostar", "Så går det till"). Inga tvådelade slagord som "Ett pris. En gång.", inga "/ Etiketter" i monospace.
+- **Färger:** vitt, svart (`ink`), `sand` för omväxlande ytor, orange (`sun`) sparsamt: solen, steg 1, "skickat vidare"-markeringar.
+- **Solen** är märket: en platt orange cirkel som skärs av en horisont (hero och sidfot). Inte blank, inte 3D.
+- **Knappar:** `Button.astro`, rundade (pill). `dark` som huvudknapp, `text` för sekundära länkar.
+- **Effekter med syfte:** chattdemon som skriver, notiserna i scroll-berättelsen och en lätt inglidning. Inte scramble-text, rullande remsor, pulserande prickar, avskurna hörn eller pop-up-chatt.
+- **Variera uppbyggnaden.** Varje avsnitt ska ha egen layout, inte samma rubrik + stycke + kort-mall.
+- Rutnät: lägg `min-w-0` på kolumner som innehåller brett innehåll, annars sticker det ut på mobilen.
 - Testa alltid både dator (1440 px) och mobil (375 px). Animationer ska respektera `prefers-reduced-motion`.
 
 ## Smartsvar som förebild
 
-Sidan är inspirerad av smartsvar.se i struktur, layout och effekter. Kopiera aldrig deras texter, bilder, 3D-filmer, logga, kundloggor, recensioner eller namnen på deras assistenter.
+Version 1 var inspirerad av smartsvar.se. Version 2 har gått vidare mot en egen stil, men berättelsen om kundfrågor vid fel tider finns kvar. Kopiera aldrig deras texter, bilder, 3D-filmer, logga, kundloggor, recensioner eller namnen på deras assistenter.
 
 ## Kvar före lansering
 
-- Alla rader märkta `ÄNDRA` i `src/data/site.ts` (telefon, mejl, org.nr, kontaktperson, foto, priser).
+- Foton på teamet och Oscar (tas efter lovet) – lägg i `public/team/` och fyll i `photo` i `src/data/site.ts`.
 - Stäm av punkterna i `Security.astro` mot de tjänster ni faktiskt använder.
 - Bokningen skickar just nu ett förifyllt mejl – koppla till Cal.com eller ett formulärverktyg.
 - Chattwidgeten är en demo med färdiga svar – byt mot er riktiga chattbot.
