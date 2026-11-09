@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* Typsnitt, lokalt hostade (inga anrop till Google/Fontshare = bättre GDPR) */
+@font-face { font-family: "Satoshi"; src: url("/fonts/satoshi-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/satoshi-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/satoshi-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/satoshi-900.woff2") format("woff2"); font-weight: 900; font-display: swap; }
+
+/* Färger och typsnitt. Ändra här så ändras hela sidan. */
+@theme {
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-ink: #121212;      /* svart */
+  --color-paper: #ffffff;    /* vitt */
+  --color-sand: #f4f2ee;     /* ljusa ytor, en aning varm */
+  --color-sand-2: #ebe7e0;
+  --color-line: #e4e0d9;
+  --color-muted: #6f6a62;
+  --color-sun: #ff6a13;      /* orange detaljfärg */
+  --color-sun-dark: #e35400;
+  --color-sun-soft: #ffe7d6;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-pulse-dot: pulse-dot 2.2s ease-in-out infinite;
+
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(255 106 19 / 0.45); }
+    50% { box-shadow: 0 0 0 5px rgb(255 106 19 / 0); }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); }
+  ::selection { background: var(--color-sun); color: #fff; }
+  :focus-visible { outline: 2px solid var(--color-sun); outline-offset: 3px; }
+  [id] { scroll-margin-top: 72px; }
+}
+
+@layer components {
+  .wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 20px; }
+  @media (min-width: 768px) { .wrap { padding-inline: 40px; } }
+
+  /* Stor, tät rubrik */
+  .display { font-weight: 700; letter-spacing: -0.045em; line-height: 0.92; }
+
+  /* Liten mono-etikett, t.ex. "/ Priser", med ett streck ovanför */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .label-line::before {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 3px;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--color-ink) 0 40%, var(--color-line) 40%);
+  }
+  .on-dark .label { color: rgb(255 255 255 / 0.55); }
+  .on-dark .label-line::before { background: linear-gradient(90deg, var(--color-sun) 0 40%, rgb(255 255 255 / 0.15) 40%); }
+
+  /* Avskurna hörn */
+  .cut-br { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut, 64px)), calc(100% - var(--cut, 64px)) 100%, 0 100%); }
+  .cut-tr { clip-path: polygon(0 0, calc(100% - var(--cut, 28px)) 0, 100% var(--cut, 28px), 100% 100%, 0 100%); }
+
+  .fade-x { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+}
+
+/* Mjuk inglidning när element syns. Lägg data-reveal på ett element. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Scroll-berättelsen: dolt tills GSAP visar det */
+.js [data-msg], .js [data-voicemail], .js [data-p-line2], .js [data-tag] { opacity: 0; visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .js [data-msg], .js [data-voicemail], .js [data-p-line2], .js [data-tag] { opacity: 1; visibility: visible; }
+  .animate-marquee { animation: none; }
+}

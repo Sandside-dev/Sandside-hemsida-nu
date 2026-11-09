@@ -1,0 +1,45 @@
+---
+import { team, site } from '../data/site';
+const initials = (n: string) =>
+  n
+    .split(' ')
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+---
+
+<section id="om-oss" class="border-t border-line py-24 md:py-36">
+  <div class="wrap">
+    <div class="grid items-end gap-6 md:grid-cols-12">
+      <div class="md:col-span-7">
+        <p class="label label-line" data-scramble>/ Vilka vi är</p>
+        <h2 class="display mt-1 text-[44px] sm:text-6xl lg:text-[76px]">Fem elever från Göteborg</h2>
+      </div>
+      <p class="text-[17px] leading-relaxed text-ink/75 md:col-span-5 md:pb-2" data-reveal>
+        {site.legalName} drivs inom Ung Företagsamhet. Vi gillar att lösa problem, kan de nya AI-verktygen och har
+        låga kostnader, så ni slipper betala byråpriser. Och vi finns kvar efter leveransen.
+      </p>
+    </div>
+
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 md:mt-16 lg:grid-cols-5">
+      {
+        team.map((m, i) => (
+          <li class="group flex flex-col rounded-[6px] bg-sand p-5" data-reveal style={`--d:${i * 80}ms`}>
+            {m.photo ? (
+              <img src={m.photo} alt={m.name} width="320" height="360" loading="lazy" class="aspect-[8/9] w-full rounded-[4px] object-cover" />
+            ) : (
+              <div class="relative grid aspect-[8/9] w-full place-items-center overflow-hidden rounded-[4px] bg-sand-2">
+                <span class="text-[44px] font-bold tracking-[-0.04em] text-ink/80">{initials(m.name)}</span>
+                <span class="absolute bottom-0 left-1/2 h-1/4 w-1/2 -translate-x-1/2 translate-y-1/2 rounded-full bg-sun/90 transition-transform duration-500 group-hover:translate-y-1/3" />
+              </div>
+            )}
+            <p class="label mt-4">{m.role}</p>
+            <h3 class="mt-1 text-[20px] font-bold tracking-[-0.02em]">{m.name}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink/70">{m.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

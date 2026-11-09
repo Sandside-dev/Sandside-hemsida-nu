@@ -1,0 +1,239 @@
+---
+// Bokning: välj dag och tid, fyll i uppgifter. Skickas just nu som ett
+// förifyllt mejl. ÄNDRA före lansering: koppla till Cal.com eller ett formulärverktyg.
+import { site, telHref } from '../data/site';
+const { contact } = site;
+---
+
+<section id="boka" class="border-t border-line bg-white py-24 md:py-36">
+  <div class="wrap">
+    <div class="mx-auto max-w-[620px] text-center">
+      <p class="label" data-scramble>/ Boka demo</p>
+      <h2 class="display mt-3 text-[44px] sm:text-6xl lg:text-[72px]">Boka ett demosamtal</h2>
+      <p class="mt-5 text-[17px] leading-relaxed text-ink/70 md:text-lg">
+        Vi visar hur en AI-chatt eller AI-receptionist skulle fungera hos just er. Ingen säljpress, och ni får
+        prata med en människa.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 grid max-w-[1000px] overflow-hidden rounded-[12px] border border-line bg-white md:grid-cols-[320px_1fr]" data-reveal>
+      <aside class="border-b border-line p-6 md:border-b-0 md:border-r md:p-8">
+        <div class="flex items-center gap-4 md:block">
+          {
+            contact.photo ? (
+              <img src={contact.photo} alt={contact.name} width="104" height="104" class="size-[88px] rounded-[10px] object-cover md:size-[104px]" />
+            ) : (
+              <div class="grid size-[88px] place-items-center rounded-[10px] bg-sun-soft text-[30px] font-bold tracking-[-0.03em] text-sun-dark md:size-[104px]">
+                {contact.initials}
+              </div>
+            )
+          }
+          <div class="md:mt-5">
+            <p class="text-[19px] font-bold tracking-[-0.02em]">{contact.name}</p>
+            <p class="text-[15px] text-muted">{contact.role}, {site.name}</p>
+          </div>
+        </div>
+
+        <ul class="mt-6 space-y-3 text-[15px] text-ink/80">
+          <li class="flex items-center gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+            Cirka 20 minuter
+          </li>
+          <li class="flex items-center gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></svg>
+            <span data-booking-summary>Välj dag och tid</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg>
+            <a href={telHref(site.salesPhone)} class="underline decoration-line underline-offset-4 hover:decoration-sun">{site.salesPhone}</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2" /><path d="M16 10l6-3v10l-6-3" /></svg>
+            Telefon eller videosamtal
+          </li>
+        </ul>
+      </aside>
+
+      <div class="p-6 md:p-8" data-booking data-email={site.email}>
+        <!-- Steg 1: dag och tid -->
+        <div data-step="1" class="grid gap-8 lg:grid-cols-[1fr_180px]">
+          <div>
+            <div class="flex items-center justify-between">
+              <p class="text-[17px] font-bold capitalize tracking-[-0.01em]" data-month-label></p>
+              <div class="flex gap-1">
+                <button type="button" data-prev aria-label="Föregående månad" class="grid size-9 place-items-center rounded-[6px] border border-line transition-colors hover:border-ink disabled:opacity-30 disabled:hover:border-line">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 3L5 8l5 5" /></svg>
+                </button>
+                <button type="button" data-next aria-label="Nästa månad" class="grid size-9 place-items-center rounded-[6px] border border-line transition-colors hover:border-ink disabled:opacity-30">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3l5 5-5 5" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="mt-5 grid grid-cols-7 text-center font-mono text-[11px] uppercase text-muted">
+              <span>Mån</span><span>Tis</span><span>Ons</span><span>Tor</span><span>Fre</span><span>Lör</span><span>Sön</span>
+            </div>
+            <div class="mt-2 grid grid-cols-7 gap-1" data-days role="grid" aria-label="Välj dag"></div>
+          </div>
+
+          <div>
+            <p class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted" data-times-label>Lediga tider</p>
+            <div class="mt-3 grid grid-cols-3 gap-2 lg:grid-cols-1" data-times>
+              <p class="col-span-3 text-[15px] text-muted lg:col-span-1">Välj en dag först.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Steg 2: uppgifter -->
+        <form data-step="2" hidden class="grid gap-4" novalidate>
+          <button type="button" data-back class="-ml-1 flex w-fit items-center gap-1.5 text-[14px] text-muted hover:text-ink">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 3L5 8l5 5" /></svg>
+            Byt tid
+          </button>
+          <p class="text-[20px] font-bold tracking-[-0.02em]" data-chosen></p>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <label class="grid gap-1.5 text-[14px] font-medium">Namn
+              <input name="namn" required autocomplete="name" class="h-12 rounded-[6px] border border-line px-3.5 text-[16px] font-normal outline-none transition-colors focus:border-ink" />
+            </label>
+            <label class="grid gap-1.5 text-[14px] font-medium">Företag
+              <input name="foretag" autocomplete="organization" class="h-12 rounded-[6px] border border-line px-3.5 text-[16px] font-normal outline-none transition-colors focus:border-ink" />
+            </label>
+            <label class="grid gap-1.5 text-[14px] font-medium">E-post
+              <input name="epost" type="email" required autocomplete="email" class="h-12 rounded-[6px] border border-line px-3.5 text-[16px] font-normal outline-none transition-colors focus:border-ink" />
+            </label>
+            <label class="grid gap-1.5 text-[14px] font-medium">Telefon
+              <input name="telefon" type="tel" autocomplete="tel" class="h-12 rounded-[6px] border border-line px-3.5 text-[16px] font-normal outline-none transition-colors focus:border-ink" />
+            </label>
+          </div>
+          <label class="grid gap-1.5 text-[14px] font-medium">Vad vill ni att AI:n ska hjälpa till med? <span class="font-normal text-muted">(valfritt)</span>
+            <textarea name="meddelande" rows="3" class="rounded-[6px] border border-line px-3.5 py-3 text-[16px] font-normal outline-none transition-colors focus:border-ink"></textarea>
+          </label>
+          <p class="hidden text-[14px] text-sun-dark" data-error>Fyll i namn och en giltig e-postadress.</p>
+          <button type="submit" class="group mt-1 flex h-14 items-center justify-between rounded-[6px] bg-ink pl-5 pr-2 text-[15px] font-medium text-white hover:bg-black">
+            Skicka bokningsförfrågan
+            <span class="grid size-10 place-items-center rounded-[4px] bg-sun" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" /></svg>
+            </span>
+          </button>
+        </form>
+
+        <!-- Steg 3: tack -->
+        <div data-step="3" hidden class="grid min-h-[300px] place-items-center text-center">
+          <div>
+            <div class="mx-auto grid size-14 place-items-center rounded-full bg-sun text-white">
+              <svg width="24" height="24" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 9.2l2.6 2.6L13 6.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+            <p class="mt-5 text-[22px] font-bold tracking-[-0.02em]">Nästan klart!</p>
+            <p class="mx-auto mt-2 max-w-[36ch] text-[16px] text-ink/70">Ditt mejlprogram öppnas med förfrågan ifylld. Skicka mejlet så bekräftar vi tiden samma dag.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-booking]');
+  if (root) {
+    const TIMES = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:30'];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const view = new Date(today.getFullYear(), today.getMonth(), 1);
+    let chosenDay: Date | null = null;
+    let chosenTime: string | null = null;
+
+    const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const days = $<HTMLElement>('[data-days]');
+    const times = $<HTMLElement>('[data-times]');
+    const monthLabel = $<HTMLElement>('[data-month-label]');
+    const prev = $<HTMLButtonElement>('[data-prev]');
+    const next = $<HTMLButtonElement>('[data-next]');
+    const summary = document.querySelector<HTMLElement>('[data-booking-summary]');
+    const step = (n: number) => root.querySelectorAll<HTMLElement>('[data-step]').forEach((el) => (el.hidden = el.dataset.step !== String(n)));
+
+    const longDate = (d: Date) => d.toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long' });
+    const isBookable = (d: Date) => d > today && d.getDay() !== 0 && d.getDay() !== 6;
+
+    function renderDays() {
+      monthLabel.textContent = view.toLocaleDateString('sv-SE', { month: 'long', year: 'numeric' });
+      prev.disabled = view.getFullYear() === today.getFullYear() && view.getMonth() === today.getMonth();
+      days.innerHTML = '';
+      const offset = (new Date(view.getFullYear(), view.getMonth(), 1).getDay() + 6) % 7;
+      const count = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+      for (let i = 0; i < offset; i++) days.append(document.createElement('span'));
+      for (let n = 1; n <= count; n++) {
+        const d = new Date(view.getFullYear(), view.getMonth(), n);
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = String(n);
+        b.setAttribute('aria-label', longDate(d));
+        const selected = chosenDay?.getTime() === d.getTime();
+        const isToday = d.getTime() === today.getTime();
+        b.className = [
+          'relative mx-auto grid size-10 place-items-center rounded-full text-[15px] transition-colors',
+          selected ? 'bg-ink text-white' : isBookable(d) ? 'font-medium hover:bg-sand' : 'text-ink/25 cursor-default',
+          isToday && !selected ? 'after:absolute after:bottom-1 after:size-1 after:rounded-full after:bg-sun' : '',
+        ].join(' ');
+        if (isBookable(d)) {
+          b.addEventListener('click', () => {
+            chosenDay = d;
+            chosenTime = null;
+            renderDays();
+            renderTimes();
+          });
+        } else b.disabled = true;
+        if (selected) b.setAttribute('aria-pressed', 'true');
+        days.append(b);
+      }
+    }
+
+    function renderTimes() {
+      times.innerHTML = '';
+      if (!chosenDay) return;
+      $<HTMLElement>('[data-times-label]').textContent = chosenDay.toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short' });
+      for (const t of TIMES) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = t;
+        b.className = 'h-11 rounded-[6px] border border-line font-mono text-[14px] transition-colors hover:border-ink';
+        b.addEventListener('click', () => {
+          chosenTime = t;
+          const label = `${longDate(chosenDay!)} kl. ${t}`;
+          $<HTMLElement>('[data-chosen]').textContent = label.charAt(0).toUpperCase() + label.slice(1);
+          if (summary) summary.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+          step(2);
+          root.querySelector<HTMLInputElement>('input[name="namn"]')?.focus();
+        });
+        times.append(b);
+      }
+    }
+
+    prev.addEventListener('click', () => (view.setMonth(view.getMonth() - 1), renderDays()));
+    next.addEventListener('click', () => (view.setMonth(view.getMonth() + 1), renderDays()));
+    $<HTMLButtonElement>('[data-back]').addEventListener('click', () => step(1));
+
+    const form = $<HTMLFormElement>('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('namn') || '').trim();
+      const email = String(data.get('epost') || '').trim();
+      const ok = name && /^\S+@\S+\.\S+$/.test(email);
+      $<HTMLElement>('[data-error]').classList.toggle('hidden', !!ok);
+      if (!ok) return;
+      const when = $<HTMLElement>('[data-chosen]').textContent;
+      const body = [
+        `Önskad tid: ${when}`,
+        `Namn: ${name}`,
+        `Företag: ${data.get('foretag') || '-'}`,
+        `E-post: ${email}`,
+        `Telefon: ${data.get('telefon') || '-'}`,
+        '',
+        String(data.get('meddelande') || ''),
+      ].join('\n');
+      window.location.href = `mailto:${root.dataset.email}?subject=${encodeURIComponent(`Demobokning: ${when}`)}&body=${encodeURIComponent(body)}`;
+      step(3);
+    });
+
+    renderDays();
+  }
+</script>

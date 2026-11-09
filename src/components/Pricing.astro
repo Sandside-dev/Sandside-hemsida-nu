@@ -1,0 +1,79 @@
+---
+import Button from './Button.astro';
+import { plans } from '../data/site';
+
+const fmt = (n: number) => n.toLocaleString('sv-SE');
+---
+
+<section id="priser" class="bg-white py-24 md:py-36">
+  <div class="wrap">
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="label label-line" data-scramble>/ Priser</p>
+        <h2 class="display mt-1 text-[44px] sm:text-6xl lg:text-[76px]">Ett pris.<br />En gång.</h2>
+      </div>
+
+      <div class="flex w-full max-w-[460px] items-stretch overflow-hidden rounded-[6px] bg-ink p-1 text-white">
+        <span class="flex flex-1 items-center justify-center rounded-[4px] bg-white px-3 py-2.5 text-[15px] font-medium text-ink">Engångspris</span>
+        <span class="ml-1 flex flex-1 items-center justify-center rounded-[4px] bg-sun px-3 py-2.5 text-center text-[14px] font-medium">Inga månadsavgifter till oss</span>
+      </div>
+    </div>
+
+    <div class="mt-12 grid gap-4 md:mt-16 lg:grid-cols-3">
+      {
+        plans.map((p, i) => (
+          <article
+            class:list={[
+              'cut-tr relative flex flex-col rounded-[6px] p-7 [--cut:32px] md:p-8',
+              p.recommended ? 'bg-ink text-white' : 'bg-sand',
+            ]}
+            data-reveal
+            style={`--d:${i * 100}ms`}
+          >
+            <div class="mb-4 h-6">
+              {p.recommended && (
+                <span class="inline-block rounded-full bg-sun px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.04em]">Vår huvudprodukt</span>
+              )}
+            </div>
+            <h3 class="text-[26px] font-bold tracking-[-0.03em]">{p.name}</h3>
+            <p class:list={['mt-1 text-[15px]', p.recommended ? 'text-white/60' : 'text-muted']}>{p.tagline}</p>
+
+            <div class="mt-8 flex items-end gap-2">
+              {p.price ? (
+                <>
+                  <span class="text-[64px] font-bold leading-[0.85] tracking-[-0.05em] md:text-[72px]">{fmt(p.price)}</span>
+                  <span class:list={['pb-1 font-mono text-[12px] uppercase', p.recommended ? 'text-white/60' : 'text-muted']}>kr</span>
+                </>
+              ) : (
+                <span class="text-[48px] font-bold leading-[0.9] tracking-[-0.05em] md:text-[56px]">Fast pris</span>
+              )}
+            </div>
+            <p class:list={['mt-2 h-5 font-mono text-[11px] uppercase tracking-[0.03em]', p.recommended ? 'text-white/45' : 'text-muted']}>
+              {p.price ? 'Engångspris' : 'Efter första mötet'}
+            </p>
+
+            <ul class:list={['mt-7 flex-1 space-y-3 border-t pt-6 text-[15px]', p.recommended ? 'border-white/15' : 'border-ink/10']}>
+              {p.features.map((f) => (
+                <li class="flex gap-3">
+                  <svg class="mt-0.5 shrink-0" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3.5 8.4l2.8 2.8 6.2-6.4" stroke="#ff6a13" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <span class:list={[p.recommended ? 'text-white/80' : 'text-ink/80']}>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Button href="#boka" variant={p.recommended ? 'light' : 'dark'} class="mt-8">
+              {p.cta}
+            </Button>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mx-auto mt-8 max-w-[70ch] text-center text-[15px] leading-relaxed text-muted">
+      Driften av AI och verktyg betalar ni direkt till leverantören, i ert eget konto. Vi visar vad det kostar
+      innan ni bestämmer er.
+    </p>
+  </div>
+</section>

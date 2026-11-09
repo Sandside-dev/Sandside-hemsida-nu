@@ -1,0 +1,60 @@
+---
+import Button from './Button.astro';
+import { site, facts } from '../data/site';
+---
+
+<section id="top" class="cut-br relative overflow-hidden bg-sand pb-8 pt-24 [--cut:48px] md:pb-10 md:pt-32 md:[--cut:96px]">
+  <div class="wrap">
+    <h1 class="display max-w-[12ch] text-[46px] sm:text-[64px] lg:text-[88px]">
+      Ta ledigt. Kunderna får svar ändå.
+    </h1>
+
+    <div class="mt-2 grid items-center gap-4 md:-mt-4 md:grid-cols-12 md:gap-8">
+      <div class="relative -mx-5 md:col-span-6 md:mx-0 md:-ml-10">
+        <div class="relative mx-auto aspect-[1/0.92] w-full max-w-[560px]">
+          <canvas
+            data-hero-3d
+            aria-hidden="true"
+            class="absolute inset-0 size-full opacity-0 transition-opacity duration-700 [&.is-ready]:opacity-100"
+          ></canvas>
+        </div>
+      </div>
+
+      <div class="pb-2 md:col-span-6 md:pt-6 lg:col-span-5 lg:col-start-8">
+        <p class="max-w-[46ch] text-[17px] leading-relaxed text-ink/80 md:text-lg">
+          Sandside är ett UF-företag från Göteborg. Vi hittar det som tar onödig tid i ert företag och bygger enkla
+          lösningar som sköter det åt er. Chattbottar som svarar kunderna dygnet runt, hemsidor och automatiska flöden
+          för bokning och påminnelser.
+        </p>
+
+        <div class="mt-7 flex max-w-[460px] flex-col gap-2.5">
+          <Button href="#boka">Boka kostnadsfritt möte</Button>
+          <Button href="#chatt" variant="light" data-open-chat>
+            Testa vår chattbot <span class="ml-1 font-mono text-[13px] text-muted">{site.bot.name}</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap mt-6 md:mt-2">
+    <div class="fade-x overflow-hidden border-t border-ink/10 pt-5 md:ml-[calc(50%+16px)]">
+      <ul class="flex w-max animate-marquee" aria-label="Kort om Sandside">
+        {
+          [...facts, ...facts].map((f, i) => (
+            <li class="flex items-center gap-2.5 whitespace-nowrap pr-10 font-mono text-[12px] uppercase tracking-[0.04em] text-ink/70" aria-hidden={i >= facts.length ? 'true' : undefined}>
+              <span class="size-1.5 rounded-full bg-sun" />
+              {f}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  // 3D laddas separat, så att text och knappar syns direkt
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-3d]');
+  if (canvas) import('../scripts/hero3d').then((m) => m.initHero(canvas));
+</script>

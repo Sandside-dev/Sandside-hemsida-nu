@@ -1,0 +1,197 @@
+---
+// Chattwidget med "Sol". Just nu en enkel demo med färdiga svar.
+// ÄNDRA före lansering: byt ut mot er riktiga chattbot.
+import { site, plans } from '../data/site';
+const bot = site.bot.name;
+const chatPrice = plans.find((p) => p.id === 'chattbot')?.price?.toLocaleString('sv-SE');
+
+const replies = {
+  pris: `En chattbot kostar ${chatPrice} kr, en gång. Vi sätter upp den i ert eget konto så att ni har full kontroll, och ni betalar inga månadsavgifter till oss. Driften av AI och verktyg betalar ni direkt till leverantören. Andra lösningar får ett fast pris efter första mötet.`,
+  telefon: `Den svarar i er telefon när ni inte hinner, pratar med kunden och bokar in tider. Efter varje samtal får ni en sammanfattning på mejlen.${site.demoPhone ? ` Ring ${site.demoPhone} och testa själv!` : ' Boka ett möte så berättar vi mer.'}`,
+  demo: 'Toppen! Välj en dag och tid som passar i kalendern, så hörs vi.',
+  chattbot: 'En chattbot som jag lär sig ert företag: priser, öppettider och vanliga frågor. Sen svarar den era kunder dygnet runt, och svåra frågor skickar den vidare till er. Hos en trafikskola kan det vara frågor om körlektioner och uppkörning.',
+  vilka: `Vi är fem elever i ${site.city} som driver Sandside som UF-företag. Vi bygger chattbottar, hemsidor och automatiska flöden åt småföretag. Just nu bygger vi en chattbot åt en trafikskola.`,
+  okand: 'Bra fråga! Jag är bara en demo än så länge, så jag kan inte svara på allt. Boka ett kort möte så svarar en människa på resten.',
+};
+---
+
+<div class="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-3 md:bottom-6 md:right-6" data-chat data-replies={JSON.stringify(replies)}>
+  <!-- Liten hälsning -->
+  <div data-chat-teaser hidden class="relative max-sm:hidden! w-[min(310px,calc(100vw-32px))] rounded-[14px] border border-line bg-white p-4 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.3)]">
+    <div class="flex items-center justify-between">
+      <span class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.05em] text-muted">
+        <span class="size-2 animate-pulse-dot rounded-full bg-sun"></span>{bot} på Sandside
+      </span>
+      <button type="button" data-chat-dismiss aria-label="Stäng" class="grid size-7 place-items-center rounded-full text-muted hover:bg-sand hover:text-ink">
+        <svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 2l8 8M10 2l-8 8" /></svg>
+      </button>
+    </div>
+    <p class="mt-2 text-[16px] font-medium leading-snug">Hej, jag heter {bot}! Jag är en chattbot som Sandside har byggt. Vill du veta hur en sån skulle funka hos er?</p>
+    <div class="mt-3 flex flex-wrap gap-2">
+      <button type="button" data-quick="chattbot" class="flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[13px] font-medium text-white hover:bg-black">
+        Ja, berätta <span class="size-1.5 rounded-full bg-sun"></span>
+      </button>
+      <button type="button" data-quick="pris" class="rounded-full border border-line px-3.5 py-2 text-[13px] font-medium hover:border-ink">Vad kostar det?</button>
+    </div>
+  </div>
+
+  <!-- Chattfönster -->
+  <div
+    data-chat-panel
+    hidden
+    role="dialog"
+    aria-label={`Chatta med ${bot}`}
+    class="flex h-[min(560px,calc(100svh-110px))] w-[min(380px,calc(100vw-32px))] flex-col overflow-hidden rounded-[16px] border border-line bg-white shadow-[0_30px_80px_-24px_rgba(0,0,0,0.35)]"
+  >
+    <div class="flex items-center gap-3 border-b border-line bg-sand px-4 py-3">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <defs><radialGradient id="sunA" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffb070" /><stop offset="1" stop-color="#ff6a13" /></radialGradient></defs>
+        <circle cx="20" cy="20" r="20" fill="url(#sunA)" />
+        <circle cx="15" cy="18" r="1.8" fill="#121212" /><circle cx="25" cy="18" r="1.8" fill="#121212" />
+        <path d="M14.5 24c1.6 2 3.4 2.8 5.5 2.8s3.9-.8 5.5-2.8" fill="none" stroke="#121212" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <div class="flex-1">
+        <p class="text-[16px] font-bold leading-tight">{bot}</p>
+        <p class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted">AI-assistent · svarar direkt</p>
+      </div>
+      <button type="button" data-chat-close aria-label="Stäng chatten" class="grid size-8 place-items-center rounded-full text-muted hover:bg-white hover:text-ink">
+        <svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 2l8 8M10 2l-8 8" /></svg>
+      </button>
+    </div>
+
+    <div data-chat-log class="flex-1 space-y-3 overflow-y-auto px-4 py-4" aria-live="polite"></div>
+
+    <div class="flex flex-wrap gap-2 px-4 pb-3" data-chat-quick>
+      <button type="button" data-quick="pris" class="rounded-full border border-line px-3 py-1.5 text-[13px] hover:border-ink">Vad kostar det?</button>
+      <button type="button" data-quick="chattbot" class="rounded-full border border-line px-3 py-1.5 text-[13px] hover:border-ink">Hur funkar en chattbot?</button>
+      <button type="button" data-quick="vilka" class="rounded-full border border-line px-3 py-1.5 text-[13px] hover:border-ink">Vilka är ni?</button>
+      <button type="button" data-quick="demo" class="rounded-full border border-line px-3 py-1.5 text-[13px] hover:border-ink">Boka demo</button>
+    </div>
+
+    <form data-chat-form class="flex items-center gap-2 border-t border-line p-3">
+      <input name="q" autocomplete="off" placeholder="Skriv en fråga…" aria-label="Din fråga" class="h-11 flex-1 rounded-full bg-sand px-4 text-[15px] outline-none placeholder:text-muted focus:ring-2 focus:ring-sun/40" />
+      <button type="submit" aria-label="Skicka" class="grid size-11 place-items-center rounded-full bg-ink text-white hover:bg-black">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" /></svg>
+      </button>
+    </form>
+    <p class="pb-2 text-center font-mono text-[10px] uppercase tracking-[0.04em] text-muted">Demo med färdiga svar</p>
+  </div>
+
+  <!-- Knappen -->
+  <button
+    type="button"
+    data-chat-toggle
+    aria-expanded="false"
+    class="group flex items-center gap-3 rounded-full bg-ink p-1.5 pr-1.5 text-white shadow-[0_16px_40px_-12px_rgba(0,0,0,0.45)] transition-transform hover:-translate-y-0.5"
+  >
+    <svg width="44" height="44" viewBox="0 0 40 40" aria-hidden="true">
+      <defs><radialGradient id="sunB" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffb070" /><stop offset="1" stop-color="#ff6a13" /></radialGradient></defs>
+      <circle cx="20" cy="20" r="20" fill="url(#sunB)" />
+      <circle cx="15" cy="18" r="1.8" fill="#121212" /><circle cx="25" cy="18" r="1.8" fill="#121212" />
+      <path d="M14.5 24c1.6 2 3.4 2.8 5.5 2.8s3.9-.8 5.5-2.8" fill="none" stroke="#121212" stroke-width="1.8" stroke-linecap="round" />
+    </svg>
+    <span class="text-[15px] font-medium">Fråga {bot}</span>
+    <span class="ml-3 grid size-11 place-items-center rounded-full bg-sun transition-transform group-aria-expanded:rotate-45" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" /></svg>
+    </span>
+  </button>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-chat]');
+  if (root) {
+    const replies = JSON.parse(root.dataset.replies || '{}') as Record<string, string>;
+    const teaser = root.querySelector<HTMLElement>('[data-chat-teaser]')!;
+    const panel = root.querySelector<HTMLElement>('[data-chat-panel]')!;
+    const toggle = root.querySelector<HTMLButtonElement>('[data-chat-toggle]')!;
+    const log = root.querySelector<HTMLElement>('[data-chat-log]')!;
+    const form = root.querySelector<HTMLFormElement>('[data-chat-form]')!;
+    const botName = toggle.textContent?.replace('Fråga', '').trim() || 'Sol';
+    let greeted = false;
+
+    const store = {
+      get: (k: string) => { try { return sessionStorage.getItem(k); } catch { return null; } },
+      set: (k: string, v: string) => { try { sessionStorage.setItem(k, v); } catch {} },
+    };
+
+    const bubble = (text: string, from: 'bot' | 'me') => {
+      const row = document.createElement('div');
+      row.className = from === 'me' ? 'flex justify-end' : 'flex';
+      const b = document.createElement('p');
+      b.className =
+        from === 'me'
+          ? 'max-w-[80%] rounded-[14px] rounded-br-[4px] bg-ink px-3.5 py-2.5 text-[15px] text-white'
+          : 'max-w-[85%] rounded-[14px] rounded-bl-[4px] bg-sand px-3.5 py-2.5 text-[15px] leading-snug';
+      b.textContent = text;
+      row.append(b);
+      log.append(row);
+      log.scrollTop = log.scrollHeight;
+    };
+
+    const botSays = (text: string, after?: () => void) => {
+      const typing = document.createElement('div');
+      typing.className = 'flex';
+      typing.innerHTML =
+        '<p class="flex gap-1 rounded-[14px] rounded-bl-[4px] bg-sand px-4 py-3.5" aria-label="skriver">' +
+        [0, 1, 2].map((i) => `<span class="size-1.5 animate-bounce rounded-full bg-ink/40" style="animation-delay:${i * 120}ms"></span>`).join('') +
+        '</p>';
+      log.append(typing);
+      log.scrollTop = log.scrollHeight;
+      setTimeout(() => {
+        typing.remove();
+        bubble(text, 'bot');
+        after?.();
+      }, 700 + Math.min(text.length * 8, 900));
+    };
+
+    const open = (state: boolean) => {
+      panel.hidden = !state;
+      teaser.hidden = true;
+      toggle.setAttribute('aria-expanded', String(state));
+      store.set('sol-seen', '1');
+      if (state && !greeted) {
+        greeted = true;
+        botSays(`Hej! Jag är ${botName}, en chattbot som Sandside har byggt. Vad undrar du?`);
+      }
+      if (state) form.querySelector('input')?.focus({ preventScroll: true });
+    };
+
+    const ask = (key: string, label: string) => {
+      open(true);
+      bubble(label, 'me');
+      botSays(replies[key] ?? replies.okand, () => {
+        if (key === 'demo') document.querySelector('#boka')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    };
+
+    toggle.addEventListener('click', () => open(panel.hidden));
+    document.querySelectorAll('[data-open-chat]').forEach((el) =>
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(true);
+      }),
+    );
+    root.querySelector('[data-chat-close]')?.addEventListener('click', () => open(false));
+    root.querySelector('[data-chat-dismiss]')?.addEventListener('click', () => {
+      teaser.hidden = true;
+      store.set('sol-seen', '1');
+    });
+    root.querySelectorAll<HTMLButtonElement>('[data-quick]').forEach((b) =>
+      b.addEventListener('click', () => ask(b.dataset.quick!, b.textContent!.trim())),
+    );
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input')!;
+      const q = input.value.trim();
+      if (!q) return;
+      input.value = '';
+      const lower = q.toLowerCase();
+      const key = /pris|kost|kr\b|betala/.test(lower) ? 'pris' : /telefon|ring|samtal|reception/.test(lower) ? 'telefon' : /boka|demo|möte/.test(lower) ? 'demo' : /vilka|vem|ni är|uf/.test(lower) ? 'vilka' : /chatt|bot|fungera|funkar/.test(lower) ? 'chattbot' : 'okand';
+      bubble(q, 'me');
+      botSays(replies[key]);
+    });
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && !panel.hidden && open(false));
+
+    if (!store.get('sol-seen')) setTimeout(() => panel.hidden && (teaser.hidden = false), 3500);
+  }
+</script>

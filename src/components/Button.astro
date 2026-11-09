@@ -1,0 +1,33 @@
+---
+// Knapp med en liten fyrkant och pil till höger.
+interface Props {
+  href: string;
+  variant?: 'dark' | 'light';
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, variant = 'dark', class: cls = '', ...rest } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    'group flex h-14 items-center justify-between gap-4 rounded-[6px] pl-5 pr-2 text-[15px] font-medium transition-colors duration-200',
+    variant === 'dark' ? 'bg-ink text-white hover:bg-black' : 'border border-line bg-white text-ink hover:border-ink',
+    cls,
+  ]}
+  {...rest}
+>
+  <span class="min-w-0 truncate"><slot /></span>
+  <span
+    class:list={[
+      'grid size-10 shrink-0 place-items-center rounded-[4px] transition-all duration-200 group-hover:-translate-y-px group-hover:translate-x-px',
+      variant === 'dark' ? 'bg-sun text-white' : 'bg-sand text-ink group-hover:bg-sun group-hover:text-white',
+    ]}
+    aria-hidden="true"
+  >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.5 11.5l7-7M5.5 4.5h6v6"></path>
+    </svg>
+  </span>
+</a>

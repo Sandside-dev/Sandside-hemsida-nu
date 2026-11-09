@@ -1,0 +1,39 @@
+---
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Sandside – chattbottar och smarta lösningar för småföretag',
+  description = 'Sandside UF från Göteborg bygger chattbottar, hemsidor och automatiska flöden åt småföretag. Fast pris innan vi börjar, och ni testar innan leverans.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f4f2ee" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="sv_SE" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>
