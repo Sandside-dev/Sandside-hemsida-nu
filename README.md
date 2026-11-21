@@ -1,43 +1,36 @@
-# Astro Starter Kit: Minimal
+# Sandside – hemsida (version 1)
 
-```sh
-npm create astro@latest -- --template minimal
+Hemsidan för **Sandside UF**, ett UF-företag i Göteborg som bygger chattbottar, hemsidor och automatiska flöden åt småföretag.
+
+Det här är **version 1** av sidan: en 3D-sol med vågor i toppen, en scroll-berättelse med kundfrågor som kommer vid fel tider, tjänster, priser, bokningskalender, team och en chattdemo ("Fråga Sol").
+
+Byggd med [Astro](https://astro.build), Tailwind CSS, GSAP och three.js.
+
+## Kom igång
+
+Du behöver [Node.js](https://nodejs.org) version 22 eller senare.
+
+```bash
+git clone https://github.com/eskilfranlund-sys/sandside-hemsida.git
+cd sandside-hemsida
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Öppna sedan http://localhost:4321 i webbläsaren.
 
-## 🚀 Project Structure
+För att bygga en färdig version att lägga upp på nätet: `npm run build`. Resultatet hamnar i mappen `dist/`.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Var saker finns
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+| Fil eller mapp | Innehåll |
+|---|---|
+| `src/data/site.ts` | All företagsfakta: kontakt, team, priser och löften. Ändra här först. |
+| `src/components/` | En fil per avsnitt på sidan |
+| `src/scripts/hero3d.ts` | 3D-solen och vågorna i toppen |
+| `src/styles/global.css` | Färger och typsnitt |
+| `CLAUDE.md` | Regler för ton och design när man bygger vidare med Claude Code |
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Versioner
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Taggen `version-1` pekar på exakt den här versionen av sidan.
