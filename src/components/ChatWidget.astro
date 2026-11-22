@@ -6,11 +6,11 @@ const bot = site.bot.name;
 const chatPrice = plans.find((p) => p.id === 'chattbot')?.price?.toLocaleString('sv-SE');
 
 const replies = {
-  pris: `En chattbot kostar ${chatPrice} kr, en gång. Vi sätter upp den i ert eget konto så att ni har full kontroll, och ni betalar inga månadsavgifter till oss. Driften av AI och verktyg betalar ni direkt till leverantören. Andra lösningar får ett fast pris efter första mötet.`,
-  telefon: `Den svarar i er telefon när ni inte hinner, pratar med kunden och bokar in tider. Efter varje samtal får ni en sammanfattning på mejlen.${site.demoPhone ? ` Ring ${site.demoPhone} och testa själv!` : ' Boka ett möte så berättar vi mer.'}`,
-  demo: 'Toppen! Välj en dag och tid som passar i kalendern, så hörs vi.',
+  pris: `En chattbot kostar ${chatPrice} kr, en gång. Vi sätter upp den i ert eget konto så att ni har full kontroll, och ni betalar inga månadsavgifter till oss. Driften av AI och verktyg betalar ni direkt till leverantören.`,
+  telefon: 'Vi fokuserar på chatbotar för företags hemsidor. Boka ett första möte så berättar vi hur en sådan skulle kunna hjälpa era besökare.',
+  demo: 'Toppen! Klicka på ”Föreslå en mötestid” så öppnas ett mejlutkast där du kan skriva vilka tider som passar.',
   chattbot: 'En chattbot som jag lär sig ert företag: priser, öppettider och vanliga frågor. Sen svarar den era kunder dygnet runt, och svåra frågor skickar den vidare till er. Hos en trafikskola kan det vara frågor om körlektioner och uppkörning.',
-  vilka: `Vi är fem elever i ${site.city} som driver Sandside som UF-företag. Vi bygger chattbottar, hemsidor och automatiska flöden åt småföretag. Just nu bygger vi en chattbot åt en trafikskola.`,
+  vilka: `Vi är fem elever i ${site.city} som driver Sandside som UF-företag. Vi bygger chatbotar för företags hemsidor. Just nu bygger vi en chatbot åt en trafikskola.`,
   okand: 'Bra fråga! Jag är bara en demo än så länge, så jag kan inte svara på allt. Boka ett kort möte så svarar en människa på resten.',
 };
 ---

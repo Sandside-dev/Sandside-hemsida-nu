@@ -1,0 +1,21 @@
+---
+import Button from './Button.astro';
+import { site, meetingHref, meetingLabel } from '../data/site';
+---
+
+<section id="chatt" class="on-dark cut-tr bg-ink py-24 text-white [--cut:48px] md:py-36 md:[--cut:96px]">
+  <div class="wrap grid gap-10 md:grid-cols-12 md:items-center">
+    <div class="md:col-span-7">
+      <p class="label label-line" data-scramble>/ Prova själv</p>
+      <h2 class="display mt-1 max-w-[12ch] text-[44px] sm:text-6xl lg:text-[76px]">Testa chatbotten {site.bot.name}</h2>
+      <p class="mt-6 max-w-[50ch] text-[17px] leading-relaxed text-white/65" data-reveal>
+        Öppna demon och fråga hur en chatbot fungerar, vad den kostar eller vilka vi är. Demon använder färdiga
+        svar men visar hur en chatt på en hemsida kan kännas för besökaren.
+      </p>
+    </div>
+    <div class="flex flex-col gap-3 md:col-span-5">
+      <Button href="#chatt" variant="light" data-open-chat>Testa chatbotten</Button>
+      <Button href={meetingHref} variant="light">{meetingLabel}</Button>
+    </div>
+  </div>
+</section>

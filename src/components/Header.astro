@@ -1,15 +1,13 @@
 ---
 import Logo from './Logo.astro';
+import { meetingHref, meetingLabel } from '../data/site';
 
 const links = [
-  { href: '/#losningar', label: 'Lösningar' },
-  { href: '/#sa-funkar-det', label: 'Så går det till' },
-  { href: '/#kunder', label: 'Kunder' },
-  { href: '/#om-oss', label: 'Om oss' },
-  { href: '/#sakerhet', label: 'Säkerhet' },
-  { href: '/#priser', label: 'Priser' },
-  { href: '/#fragor', label: 'Vanliga frågor' },
+  { href: '/', label: 'Startsida', path: '/' },
+  { href: '/om-oss', label: 'Om oss', path: '/om-oss' },
 ];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header
@@ -35,10 +33,10 @@ const links = [
         </span>
       </button>
       <a
-        href="/#boka"
-        class="inline-flex h-10 items-center rounded-[6px] border border-ink bg-white px-4 text-sm font-medium transition-colors hover:bg-ink hover:text-white"
+        href={meetingHref}
+        class="hidden h-10 items-center rounded-[6px] border border-ink bg-white px-4 text-sm font-medium transition-colors hover:bg-ink hover:text-white sm:inline-flex"
       >
-        Boka demo
+        {meetingLabel}
       </a>
     </div>
   </div>
@@ -55,7 +53,8 @@ const links = [
           <li>
             <a
               href={l.href}
-              class="group flex items-baseline gap-4 rounded-[6px] px-3 py-3 transition-colors hover:bg-sand"
+              aria-current={currentPath === l.path ? 'page' : undefined}
+              class="group flex items-baseline gap-4 rounded-[6px] px-3 py-3 transition-colors hover:bg-sand aria-[current=page]:bg-sand"
             >
               <span class="font-mono text-[11px] text-muted group-hover:text-sun">/{String(i + 1).padStart(2, '0')}</span>
               <span class="text-[22px] font-bold tracking-[-0.03em]" data-scramble-hover>{l.label}</span>
@@ -65,10 +64,10 @@ const links = [
       }
     </ul>
     <a
-      href="/#boka"
+      href={meetingHref}
       class="mt-2 flex items-center justify-between rounded-[6px] bg-ink px-4 py-3.5 text-[15px] font-medium text-white"
     >
-      Boka kostnadsfri demo
+      {meetingLabel}
       <span class="grid size-8 place-items-center rounded-[4px] bg-sun" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"></path></svg>
       </span>

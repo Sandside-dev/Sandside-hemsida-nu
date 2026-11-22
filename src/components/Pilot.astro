@@ -1,6 +1,6 @@
 ---
 import Button from './Button.astro';
-import { site } from '../data/site';
+import { site, meetingHref, meetingLabel } from '../data/site';
 const { current, promises } = site;
 ---
 
@@ -12,7 +12,7 @@ const { current, promises } = site;
         <h2 class="display mt-1 text-[40px] sm:text-[56px] lg:text-[68px]">Bli en av våra första kunder</h2>
         <p class="mt-6 max-w-[52ch] text-[17px] leading-relaxed text-ink/75">
           Sandside är nytt, så vi har inga färdiga kundcase att visa än. Vi tänker inte hitta på några heller.
-          Vi tar varje uppdrag på allvar, och när de första lösningarna är levererade berättar vi om resultatet här.
+          Vi tar varje uppdrag på allvar, och när de första chatbotarna är levererade berättar vi om resultatet här.
         </p>
 
         <div class="mt-8 flex max-w-[480px] items-start gap-3 rounded-[6px] border border-ink/10 bg-white px-4 py-3.5">
@@ -40,7 +40,7 @@ const { current, promises } = site;
           }
         </ul>
 
-        <Button href="#boka" class="mt-5">Boka ett första möte</Button>
+        <Button href={meetingHref} class="mt-5">{meetingLabel}</Button>
       </div>
     </div>
   </div>

@@ -9,16 +9,16 @@ const initials = (n: string) =>
     .toUpperCase();
 ---
 
-<section id="om-oss" class="border-t border-line py-24 md:py-36">
+<section id="teamet" class="border-t border-line py-24 md:py-36">
   <div class="wrap">
     <div class="grid items-end gap-6 md:grid-cols-12">
       <div class="md:col-span-7">
-        <p class="label label-line" data-scramble>/ Vilka vi är</p>
-        <h2 class="display mt-1 text-[44px] sm:text-6xl lg:text-[76px]">Fem elever från Göteborg</h2>
+        <p class="label label-line" data-scramble>/ Teamet</p>
+        <h2 class="display mt-1 text-[44px] sm:text-6xl lg:text-[76px]">Fem personer, tydliga roller</h2>
       </div>
       <p class="text-[17px] leading-relaxed text-ink/75 md:col-span-5 md:pb-2" data-reveal>
-        {site.legalName} drivs inom Ung Företagsamhet. Vi gillar att lösa problem, kan de nya AI-verktygen och har
-        låga kostnader, så ni slipper betala byråpriser. Och vi finns kvar efter leveransen.
+        {site.legalName} drivs inom Ung Företagsamhet av fem elever i Göteborg. Här är personerna bakom företaget,
+        med samma roller och ordning som i vår befintliga presentation.
       </p>
     </div>
 
@@ -32,6 +32,7 @@ const initials = (n: string) =>
               <div class="relative grid aspect-[8/9] w-full place-items-center overflow-hidden rounded-[4px] bg-sand-2">
                 <span class="text-[44px] font-bold tracking-[-0.04em] text-ink/80">{initials(m.name)}</span>
                 <span class="absolute bottom-0 left-1/2 h-1/4 w-1/2 -translate-x-1/2 translate-y-1/2 rounded-full bg-sun/90 transition-transform duration-500 group-hover:translate-y-1/3" />
+                <span class="absolute bottom-3 left-3 rounded-full bg-white px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.04em] text-muted">Porträtt saknas</span>
               </div>
             )}
             <p class="label mt-4">{m.role}</p>

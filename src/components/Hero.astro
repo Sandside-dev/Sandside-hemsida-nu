@@ -1,12 +1,12 @@
 ---
 import Button from './Button.astro';
-import { site, facts } from '../data/site';
+import { facts, meetingHref, meetingLabel } from '../data/site';
 ---
 
 <section id="top" class="cut-br relative overflow-hidden bg-sand pb-8 pt-24 [--cut:48px] md:pb-10 md:pt-32 md:[--cut:96px]">
   <div class="wrap">
     <h1 class="display max-w-[12ch] text-[46px] sm:text-[64px] lg:text-[88px]">
-      Ta ledigt. Kunderna får svar ändå.
+      En chatbot som svarar på er hemsida.
     </h1>
 
     <div class="mt-2 grid items-center gap-4 md:-mt-4 md:grid-cols-12 md:gap-8">
@@ -22,15 +22,14 @@ import { site, facts } from '../data/site';
 
       <div class="pb-2 md:col-span-6 md:pt-6 lg:col-span-5 lg:col-start-8">
         <p class="max-w-[46ch] text-[17px] leading-relaxed text-ink/80 md:text-lg">
-          Sandside är ett UF-företag från Göteborg. Vi hittar det som tar onödig tid i ert företag och bygger enkla
-          lösningar som sköter det åt er. Chattbottar som svarar kunderna dygnet runt, hemsidor och automatiska flöden
-          för bokning och påminnelser.
+          Sandside bygger chatbotar för företags hemsidor. Chatbotten svarar på återkommande kundfrågor om till
+          exempel öppettider, tjänster och hur man bokar, även när ni inte har tid att svara själva.
         </p>
 
         <div class="mt-7 flex max-w-[460px] flex-col gap-2.5">
-          <Button href="#boka">Boka kostnadsfritt möte</Button>
-          <Button href="#chatt" variant="light" data-open-chat>
-            Testa vår chattbot <span class="ml-1 font-mono text-[13px] text-muted">{site.bot.name}</span>
+          <Button href="#chatt" data-open-chat>Testa chatbotten</Button>
+          <Button href={meetingHref} variant="light">
+            {meetingLabel}
           </Button>
         </div>
       </div>

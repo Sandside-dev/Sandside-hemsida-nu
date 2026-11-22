@@ -1,35 +1,35 @@
 ---
 import Button from './Button.astro';
 import Logo from './Logo.astro';
-import { site, telHref } from '../data/site';
+import { site, telHref, meetingHref, meetingLabel } from '../data/site';
 const year = new Date().getFullYear();
 ---
 
 <footer class="on-dark overflow-hidden bg-ink text-white">
   <div class="wrap pt-20 md:pt-28">
     <div class="flex flex-col gap-8 border-b border-white/15 pb-14 md:flex-row md:items-end md:justify-between">
-      <h2 class="display max-w-[14ch] text-[40px] sm:text-[56px] lg:text-[64px]">Dags att ta ledigt på riktigt?</h2>
-      <Button href="/#boka" variant="light" class="w-full max-w-[360px]">Boka kostnadsfri demo</Button>
+      <h2 class="display max-w-[14ch] text-[40px] sm:text-[56px] lg:text-[64px]">Ska vi prata chatbot?</h2>
+      <Button href={meetingHref} variant="light" class="w-full max-w-[360px]">{meetingLabel}</Button>
     </div>
 
     <div class="grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-4">
       <div>
         <Logo inverted />
-        <p class="mt-4 max-w-[28ch] text-[15px] leading-relaxed text-white/55">Chattbottar, hemsidor och automatiska flöden för småföretag.</p>
+        <p class="mt-4 max-w-[28ch] text-[15px] leading-relaxed text-white/55">Chatbotar för företags hemsidor.</p>
       </div>
       <div>
-        <p class="label">Lösningar</p>
+        <p class="label">Chatbotar</p>
         <ul class="mt-4 space-y-2.5 text-[15px] text-white/80">
-          <li><a href="/#losningar" class="hover:text-sun">Chattbottar</a></li>
-          <li><a href="/#losningar" class="hover:text-sun">Hemsidor och flöden</a></li>
-          <li><a href="/#losningar" class="hover:text-sun">AI-receptionist</a></li>
+          <li><a href="/#erbjudandet" class="hover:text-sun">Erbjudandet</a></li>
+          <li><a href="/#chatt" class="hover:text-sun">Testa chatbotten</a></li>
           <li><a href="/#priser" class="hover:text-sun">Priser</a></li>
         </ul>
       </div>
       <div>
         <p class="label">Företaget</p>
         <ul class="mt-4 space-y-2.5 text-[15px] text-white/80">
-          <li><a href="/#om-oss" class="hover:text-sun">Om oss</a></li>
+          <li><a href="/" class="hover:text-sun">Startsida</a></li>
+          <li><a href="/om-oss" class="hover:text-sun">Om oss</a></li>
           <li><a href="/#kunder" class="hover:text-sun">Kunder</a></li>
           <li><a href="/#sakerhet" class="hover:text-sun">Säkerhet</a></li>
           <li><a href="/#fragor" class="hover:text-sun">Vanliga frågor</a></li>

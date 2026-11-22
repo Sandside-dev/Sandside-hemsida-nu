@@ -1,95 +1,39 @@
 ---
-// Scroll-berättelse: frågor och missade samtal dyker upp vid fel tider.
-// Frågorna kommer från våra målbranscher: trafikskolor, frisörer, tatuerare, PT och hantverkare.
-// x/y = position på dator, mx/my = position på mobil (procent).
-const messages = [
-  { time: 'Mån 07:12', type: 'chat', text: 'Hej! Kan ni komma och titta på en läcka i dag?', x: 4, y: 11, mx: 4, my: 9 },
-  { time: 'Tis 18:46', type: 'call', text: 'Missat samtal · Okänt nummer', x: 72, y: 9, mx: 30, my: 17 },
-  { time: 'Ons 21:05', type: 'chat', text: 'Hur många körlektioner brukar man behöva?', x: 2, y: 43, mx: 6, my: 25 },
-  { time: 'Tor 22:18', type: 'chat', text: 'Vad kostar en liten tatuering på handleden?', x: 78, y: 41, mx: 28, my: 63 },
-  { time: 'Fre 16:59', type: 'call', text: 'Missat samtal · 070-…', x: 7, y: 75, mx: 4, my: 70 },
-  { time: 'Lör 08:30', type: 'chat', text: 'Finns det någon tid för klippning i dag?', x: 73, y: 73, mx: 26, my: 77 },
-  { time: 'Sön 20:14', type: 'chat', text: 'Kan man testa en PT-timme innan man köper ett kort?', x: 38, y: 10, mx: 8, my: 84 },
+const questions = [
+  { time: '07:12', text: 'När öppnar ni i morgon?' },
+  { time: '18:46', text: 'Vilka tjänster erbjuder ni?' },
+  { time: '21:05', text: 'Hur bokar jag en tid?' },
+  { time: '22:18', text: 'Vad behöver jag förbereda inför besöket?' },
 ];
 ---
 
-<section id="problem" aria-labelledby="problem-rubrik" class="relative bg-white">
-  <div data-problem class="relative h-[280vh] motion-reduce:h-auto">
-    <div class="sticky top-0 h-svh overflow-hidden motion-reduce:relative motion-reduce:h-auto motion-reduce:min-h-svh motion-reduce:py-24">
-      <div class="pointer-events-none absolute inset-0 z-10 grid place-items-center px-5 text-center motion-reduce:relative motion-reduce:mb-12">
-        <div>
-          <h2 id="problem-rubrik" class="display mx-auto max-w-[12ch] text-[40px] sm:text-6xl lg:text-[76px]">
-            Kunderna hör av sig när det passar dem.
-          </h2>
-          <p data-p-line2 class="display mx-auto mt-4 max-w-[18ch] text-balance text-[40px] text-sun sm:text-6xl lg:text-[76px]">Inte när det passar er.</p>
-        </div>
-      </div>
+<section id="problem" aria-labelledby="problem-rubrik" class="border-t border-line bg-white py-24 md:py-36">
+  <div class="wrap grid gap-12 md:grid-cols-12 md:items-start">
+    <div class="md:sticky md:top-28 md:col-span-6">
+      <p class="label label-line" data-scramble>/ Frågor när ni inte hinner</p>
+      <h2 id="problem-rubrik" class="display mt-1 max-w-[11ch] text-[44px] sm:text-6xl lg:text-[76px]">
+        Samma frågor. Varje dag.
+      </h2>
+      <p class="mt-6 max-w-[42ch] text-[17px] leading-relaxed text-ink/75" data-reveal>
+        Besökare vill ha svar direkt. En chatbot på hemsidan tar hand om de återkommande frågorna och hänvisar
+        vidare när en människa behöver ta över.
+      </p>
+    </div>
 
+    <ul class="grid gap-3 md:col-span-6" aria-label="Exempel på återkommande kundfrågor">
       {
-        messages.map((m) => (
-          <div
-            data-msg
-            class="absolute left-[var(--mx)] top-[var(--my)] w-[min(260px,72vw)] rounded-[10px] border border-line bg-white px-4 py-3 shadow-[0_12px_32px_-14px_rgba(0,0,0,0.18)] md:left-[min(var(--x),calc(100%-280px))] md:top-[var(--y)] md:w-[250px] motion-reduce:static motion-reduce:mx-auto motion-reduce:mb-3"
-            style={`--x:${m.x}%;--y:${m.y}%;--mx:${m.mx}%;--my:${m.my}%`}
-          >
-            <div class="flex items-center justify-between gap-3">
-              <span class="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.04em] text-muted">
-                {m.type === 'call' ? (
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff6a13" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-                ) : (
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                )}
-                {m.time}
+        questions.map((question, i) => (
+          <li class="rounded-[10px] border border-line bg-sand p-5 md:p-6" data-reveal style={`--d:${i * 80}ms`}>
+            <div class="flex items-center justify-between gap-4">
+              <span class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted">Besökare · {question.time}</span>
+              <span class="rounded-full bg-sun-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.04em] text-sun-dark">
+                Vanlig fråga
               </span>
-              <span data-tag class="rounded-full bg-sun-soft px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.04em] text-sun-dark">Obesvarad</span>
             </div>
-            <p class:list={['mt-1.5 text-[15px] leading-snug', m.type === 'call' ? 'text-ink/60' : 'text-ink']}>
-              {m.type === 'chat' ? `”${m.text}”` : m.text}
-            </p>
-          </div>
+            <p class="mt-3 text-[19px] font-medium leading-snug tracking-[-0.01em]">”{question.text}”</p>
+          </li>
         ))
       }
-
-      <div
-        data-voicemail
-        class="absolute bottom-[7%] left-1/2 z-20 w-[min(420px,88vw)] -translate-x-1/2 rounded-[10px] border border-dashed border-ink/25 bg-sand px-5 py-4 text-center max-md:hidden motion-reduce:static motion-reduce:mx-auto motion-reduce:mt-8 motion-reduce:translate-x-0"
-      >
-        <p class="font-mono text-[11px] uppercase tracking-[0.04em] text-muted">Röstbrevlåda</p>
-        <p class="mt-1 text-[15px] text-ink/70">”Hej, vi har tyvärr stängt just nu. Lämna ett meddelande efter tonen så ringer vi upp.”</p>
-      </div>
-    </div>
+    </ul>
   </div>
 </section>
-
-<script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  const section = document.querySelector<HTMLElement>('[data-problem]');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (section && !reduce) {
-    gsap.registerPlugin(ScrollTrigger);
-    const msgs = section.querySelectorAll('[data-msg]');
-    const tags = section.querySelectorAll('[data-tag]');
-
-    const tl = gsap.timeline({
-      defaults: { ease: 'power2.out' },
-      scrollTrigger: { trigger: section, start: 'top top', end: 'bottom bottom', scrub: 0.8 },
-    });
-
-    msgs.forEach((m, i) => {
-      tl.fromTo(
-        m,
-        { autoAlpha: 0, y: 36, scale: 0.92, filter: 'blur(8px)' },
-        { autoAlpha: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1 },
-        i * 0.65,
-      );
-    });
-
-    tl.fromTo('[data-p-line2]', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1 }, '+=0.2')
-      .fromTo('[data-voicemail]', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1 }, '<0.2')
-      .fromTo(tags, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.4, stagger: 0.08 }, '<')
-      .to({}, { duration: 0.8 });
-  }
-</script>

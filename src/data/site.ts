@@ -9,7 +9,6 @@ export const site = {
   legalName: 'Sandside UF',
   email: 'info@sandside.se',
   salesPhone: '072-453 80 42',
-  demoPhone: '', // Numret till AI-receptionisten som besökare kan ringa. Tomt = visas inte.
   city: 'Göteborg',
 
   // Personen som visas vid bokningen. Lägg en bild i /public och skriv sökvägen i photo.
@@ -39,6 +38,24 @@ export const site = {
   ],
 };
 
+// Lägg en extern bokningslänk här när den finns. Tom sträng använder företagsmejlen.
+export const booking = {
+  url: '',
+};
+
+const meetingSubject = 'Förslag på tid för ett första möte';
+const meetingBody = [
+  'Hej Sandside!',
+  '',
+  'Företag:',
+  'Tider som passar oss:',
+  '',
+  'Vi vill gärna prata om en chatbot för vår hemsida.',
+].join('\n');
+
+export const meetingHref = booking.url || `mailto:${site.email}?subject=${encodeURIComponent(meetingSubject)}&body=${encodeURIComponent(meetingBody)}`;
+export const meetingLabel = booking.url ? 'Boka ett möte' : 'Föreslå en mötestid';
+
 // Ledningsgruppen. Stäm av med var och en att de vill synas på sidan.
 // Lägg bilder i /public/team/ och skriv sökvägen i photo.
 export const team = [
@@ -57,7 +74,7 @@ export const facts = [
   'Fast pris innan vi börjar',
   'Ni testar innan leverans',
   'Ni äger er bot och era data',
-  'Flöden lagras inom EU',
+  'Svar på vanliga kundfrågor',
   'Uppföljning efter en vecka',
   'Inga månadsavgifter till oss',
   'Vanliga verktyg, inga låsningar',
@@ -80,31 +97,5 @@ export const plans = [
       'Inga månadsavgifter till oss',
     ],
     cta: 'Boka ett första möte',
-  },
-  {
-    id: 'receptionist',
-    name: 'AI-receptionist',
-    tagline: 'Svarar i telefon när ni inte hinner',
-    price: null as number | null,
-    recommended: false,
-    features: [
-      'Tränad på er information och ert sätt att prata',
-      'Svåra ärenden går vidare till er',
-      'Ni testar den innan vi lämnar över',
-    ],
-    cta: 'Få ett fast pris',
-  },
-  {
-    id: 'ovrigt',
-    name: 'Hemsida och flöden',
-    tagline: 'Hemsidor, flöden och AI-genomgång',
-    price: null as number | null,
-    recommended: false,
-    features: [
-      'Hemsida som ni kan ändra i själva',
-      'Bokning, bekräftelser och påminnelser som sköter sig själva',
-      'AI-genomgång med en skriftlig lista över var ni kan spara tid',
-    ],
-    cta: 'Få ett fast pris',
   },
 ];
