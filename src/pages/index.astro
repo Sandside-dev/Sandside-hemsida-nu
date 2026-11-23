@@ -2,15 +2,18 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Problem from '../components/Problem.astro';
-import Solutions from '../components/Solutions.astro';
+import Overview from '../components/Overview.astro';
+import Details from '../components/Details.astro';
+// Förra sektionerna (finns kvar): Problem, Solutions, Faq.
+// import Problem from '../components/Problem.astro';
+// import Solutions from '../components/Solutions.astro';
 import Process from '../components/Process.astro';
 import Pilot from '../components/Pilot.astro';
 import Security from '../components/Security.astro';
 import Pricing from '../components/Pricing.astro';
 import ChatDemo from '../components/ChatDemo.astro';
 import Booking from '../components/Booking.astro';
-import Faq from '../components/Faq.astro';
+// import Faq from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 import ChatWidget from '../components/ChatWidget.astro';
 ---
@@ -19,15 +22,14 @@ import ChatWidget from '../components/ChatWidget.astro';
   <Header />
   <main>
     <Hero />
-    <Problem />
-    <Solutions />
+    <Overview />
+    <Details />
     <Process />
     <ChatDemo />
     <Pilot />
     <Security />
     <Pricing />
     <Booking />
-    <Faq />
   </main>
   <Footer />
   <ChatWidget />

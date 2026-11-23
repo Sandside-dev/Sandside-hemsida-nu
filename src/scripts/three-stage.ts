@@ -22,7 +22,7 @@ export function createStage(canvas: HTMLCanvasElement, { fov = 30, z = 10 } = {}
   const camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 100);
   camera.position.set(0, 0, z);
 
-  const key = new THREE.DirectionalLight(0xfff0e0, 1.4);
+  const key = new THREE.DirectionalLight(0xf0f5ff, 1.4);
   key.position.set(-4, 6, 6);
   scene.add(key);
   const rim = new THREE.DirectionalLight(0xffffff, 0.6);
@@ -84,20 +84,20 @@ export function createStage(canvas: HTMLCanvasElement, { fov = 30, z = 10 } = {}
   };
 }
 
-// Blanka material i sidans färger
+// Blanka material i sidans färger (vitt och blått). Förra färgerna: sol 0xff6400, vit 0xf6f3ee, svart 0x141414, nyckelljus 0xfff0e0.
 export const materials = {
   sun: () =>
     new THREE.MeshPhysicalMaterial({
-      color: 0xff6400,
+      color: 0x2f6bff,
       roughness: 0.35,
       clearcoat: 1,
       clearcoatRoughness: 0.06,
       envMapIntensity: 0.55,
     }),
   white: () =>
-    new THREE.MeshPhysicalMaterial({ color: 0xf6f3ee, roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.05 }),
+    new THREE.MeshPhysicalMaterial({ color: 0xf4f7ff, roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.05 }),
   black: () =>
-    new THREE.MeshPhysicalMaterial({ color: 0x141414, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.05 }),
+    new THREE.MeshPhysicalMaterial({ color: 0x14337f, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.05 }),
 };
 
 // Följ muspekaren mjukt. Returnerar ett objekt med x/y i intervallet -1..1.

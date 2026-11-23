@@ -39,8 +39,10 @@ export function initHero(canvas: HTMLCanvasElement) {
   scene.add(root);
 
   // Solen
-  const sun = new THREE.Mesh(new THREE.SphereGeometry(1.35, 96, 64), materials.sun());
-  sun.position.set(0.25, 0.85, -0.9);
+  // Solen ligger längre bak än vågorna så att den inte skär igenom den vita linjen.
+  // Förra läget: radie 1.35, position (0.25, 0.85, -0.9). Radien är lite större och x justerat för att se lika stor ut och sitta på samma ställe.
+  const sun = new THREE.Mesh(new THREE.SphereGeometry(1.45, 96, 64), materials.sun());
+  sun.position.set(-0.2, 0.85, -2.0);
   root.add(sun);
 
   // Vågorna (bak → fram)

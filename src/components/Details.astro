@@ -1,0 +1,86 @@
+---
+// Mer information bakom varje ruta i Overview.astro. Rutorna länkar hit (#detalj-...).
+// Håll texterna i linje med affärsplanen och CLAUDE.md: inga påhittade siffror eller kunder.
+const items = [
+  {
+    id: 'detalj-pris',
+    label: '/ Pris',
+    title: 'Fast pris innan vi börjar',
+    intro: 'Vi säger vad det kostar innan vi sätter igång, och det priset gäller.',
+    points: [
+      'Chatbotten kostar 8 000 kr i engångspris.',
+      'Vi sätter upp den i ert eget konto, så ni har full kontroll.',
+      'Inga månadsavgifter till Sandside. Driften av AI och verktyg betalar ni direkt till leverantören.',
+      'Övriga tjänster, som hemsida eller automatiska arbetsflöden, får ett fast pris efter första mötet.',
+    ],
+    link: { href: '#priser', text: 'Se alla priser' },
+  },
+  {
+    id: 'detalj-chatbot',
+    label: '/ Det här bygger vi',
+    title: 'Chatbotar för företags hemsidor',
+    intro: 'Vi lär chatbotten er egen information så att den kan ge tydliga svar och hjälpa besökaren vidare.',
+    points: [
+      'Den svarar på det kunderna frågar om oftast: öppettider, tjänster, priser, förberedelser och hur man bokar.',
+      'Den svarar bara utifrån er information, och hänvisar till er personal när den inte kan svara.',
+      'Den finns där även efter stängning, och säger själv att den är en AI.',
+      'Ni kan ändra vad den säger. Säg till så uppdaterar vi, till exempel med nya priser eller öppettider.',
+    ],
+    link: { href: '#chatt', text: 'Testa chatbotten' },
+  },
+  {
+    id: 'detalj-testa',
+    label: '/ Före leverans',
+    title: 'Ni testar innan leverans',
+    intro: 'Ni ska få prova chatbotten med riktiga kundfrågor innan vi lämnar över den.',
+    points: [
+      'Vi bygger chatbotten och lägger in er information. Under bygget använder vi testdata och tillfällig åtkomst.',
+      'Ni testar och säger till vad som ska ändras. Vi justerar innan leverans.',
+      'Själva bygget tar oftast 4–20 timmar. Vi går i skolan, så räkna med en till några veckor från första mötet till färdig chatbot.',
+      'Chatbotten ligger i ert eget konto, byggd med vanliga verktyg. Ni blir inte låsta till oss.',
+    ],
+    link: { href: '#sa-funkar-det', text: 'Se hur det går till' },
+  },
+  {
+    id: 'detalj-uppfoljning',
+    label: '/ Efteråt',
+    title: 'Uppföljning efter en vecka',
+    intro: 'Vi lämnar inte över och försvinner. Vi hör av oss när chatbotten har varit igång en vecka.',
+    points: [
+      'Vi visar vad chatbotten kan och inte kan när vi lämnar över den.',
+      'Ni får en skriftlig instruktion, så ni vet hur ni ändrar och sköter den.',
+      'Efter en vecka kollar vi att allt fungerar som ni vill och rättar det som behövs.',
+      'Vill ni ändra något senare går det bra att höra av sig.',
+    ],
+    link: { href: '#boka', text: 'Föreslå en mötestid' },
+  },
+];
+---
+
+<section aria-label="Mer information" class="bg-white pb-12 md:pb-20">
+  <div class="wrap">
+    <div class="mx-auto max-w-[1100px] divide-y divide-line border-y border-line">
+      {
+        items.map((it) => (
+          <article id={it.id} class="grid gap-6 py-14 md:grid-cols-12 md:gap-10 md:py-20">
+            <div class="md:col-span-5">
+              <p class="label label-line">{it.label}</p>
+              <h2 class="display mt-1 text-[34px] sm:text-5xl lg:text-[52px]">{it.title}</h2>
+            </div>
+            <div class="md:col-span-7">
+              <p class="max-w-[48ch] text-[19px] font-medium leading-snug tracking-[-0.01em]">{it.intro}</p>
+              <ul class="mt-6 grid gap-3 text-[16px] leading-relaxed text-ink/75">
+                {it.points.map((p) => (
+                  <li class="flex gap-3"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun"></span><span>{p}</span></li>
+                ))}
+              </ul>
+              <a href={it.link.href} class="mt-8 inline-flex items-center gap-2 border-b border-ink/30 pb-0.5 text-[15px] font-medium hover:border-sun hover:text-sun">
+                {it.link.text} <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,121 @@
+---
+// Fyra kvadrater i ett rutnät. Ersätter sektionerna Problem, Solutions och Faq på startsidan
+// (de filerna finns kvar orörda, så det går att byta tillbaka i src/pages/index.astro).
+// Förra innehållet i rutorna: "Samma frågor. Varje dag.", "Chatbotar för företags hemsidor",
+// "Svarar direkt på det kunderna frågar om oftast" och "Bra att veta" (vanliga frågor).
+---
+
+<section id="oversikt" aria-label="Om Sandside" class="border-t border-line bg-white py-20 md:py-28">
+  <div class="wrap">
+    <div class="ov-grid mx-auto grid max-w-[1100px] gap-4 md:grid-cols-2 md:gap-5">
+      <!-- 1 -->
+      <a href="#detalj-pris" data-ov-open class="ov-card flex flex-col justify-between rounded-[6px] bg-sand p-7 md:aspect-square md:p-10" data-reveal>
+        <div>
+          <p class="label">/ Pris</p>
+          <h2 class="display mt-3 text-[36px] sm:text-5xl lg:text-[56px]">Fast pris innan vi börjar</h2>
+        </div>
+        <p class="mt-8 max-w-[38ch] text-[17px] leading-relaxed text-ink/75">
+          Chatbotten kostar 8 000 kr, en gång. Ni vet priset innan vi sätter igång och betalar inga månadsavgifter till oss.
+          <span class="mt-5 block font-mono text-[12px] uppercase tracking-[0.04em]">Läs mer →</span>
+        </p>
+      </a>
+
+      <!-- 2 -->
+      <a href="#detalj-chatbot" data-ov-open id="erbjudandet" class="ov-card on-dark flex flex-col justify-between rounded-[6px] bg-ink p-7 text-white md:aspect-square md:p-10" data-reveal style="--d:80ms">
+        <div>
+          <p class="label">/ Det här bygger vi</p>
+          <h2 class="display mt-3 text-[36px] sm:text-5xl lg:text-[56px]">Chatbotar för företags hemsidor</h2>
+        </div>
+        <p class="mt-8 max-w-[38ch] text-[17px] leading-relaxed text-white/70">
+          Vi lär chatbotten er egen information så att den kan ge tydliga svar och hjälpa besökaren vidare.
+          <span class="mt-5 block font-mono text-[12px] uppercase tracking-[0.04em]">Läs mer →</span>
+        </p>
+      </a>
+
+      <!-- 3 -->
+      <a href="#detalj-testa" data-ov-open class="ov-card on-dark flex flex-col justify-between rounded-[6px] bg-ink p-7 text-white md:aspect-square md:p-10" data-reveal style="--d:160ms">
+        <div>
+          <p class="label">/ Före leverans</p>
+          <h2 class="display mt-3 text-[36px] sm:text-5xl lg:text-[56px]">Ni testar innan leverans</h2>
+        </div>
+        <p class="mt-8 max-w-[38ch] text-[17px] leading-relaxed text-white/70">
+          Ni provar chatbotten och säger till vad som ska ändras innan vi lämnar över den.
+          <span class="mt-5 block font-mono text-[12px] uppercase tracking-[0.04em]">Läs mer →</span>
+        </p>
+      </a>
+
+      <!-- 4 -->
+      <a href="#detalj-uppfoljning" data-ov-open class="ov-card flex flex-col justify-between rounded-[6px] bg-sand p-7 md:aspect-square md:p-10" data-reveal style="--d:240ms">
+        <div>
+          <p class="label">/ Efteråt</p>
+          <h2 class="display mt-3 text-[36px] sm:text-5xl lg:text-[56px]">Uppföljning efter en vecka</h2>
+        </div>
+        <p class="mt-8 max-w-[38ch] text-[17px] leading-relaxed text-ink/75">
+          Vi hör av oss när chatbotten har varit igång en vecka och kollar att allt fungerar som ni vill.
+          <span class="mt-5 block font-mono text-[12px] uppercase tracking-[0.04em]">Läs mer →</span>
+        </p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Klick på en ruta: rutan växer till hela skärmen, sidan hoppar till texten under, och rutan tonas bort.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let busy = false;
+
+  document.querySelectorAll<HTMLAnchorElement>('[data-ov-open]').forEach((card) => {
+    card.addEventListener('click', (e) => {
+      const target = document.querySelector<HTMLElement>(card.getAttribute('href') ?? '');
+      if (!target) return;
+      e.preventDefault();
+      if (busy) return;
+      const go = () => {
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 72, behavior: 'instant' as ScrollBehavior });
+        history.replaceState(null, '', card.getAttribute('href'));
+        target.focus?.({ preventScroll: true });
+      };
+      if (reduce) return go();
+
+      busy = true;
+      const r = card.getBoundingClientRect();
+      const cs = getComputedStyle(card);
+      const veil = document.createElement('div');
+      veil.className = card.classList.contains('on-dark') ? 'on-dark' : '';
+      veil.setAttribute('aria-hidden', 'true');
+      Object.assign(veil.style, {
+        position: 'fixed', zIndex: '100', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        background: cs.backgroundColor, color: cs.color, top: r.top + 'px', left: r.left + 'px', width: r.width + 'px', height: r.height + 'px',
+        borderRadius: cs.borderRadius, padding: cs.padding, boxSizing: 'border-box',
+      });
+      const head = card.firstElementChild?.cloneNode(true);
+      if (head) veil.append(head);
+      document.body.append(veil);
+
+      const grow = veil.animate(
+        [
+          { top: r.top + 'px', left: r.left + 'px', width: r.width + 'px', height: r.height + 'px', borderRadius: cs.borderRadius },
+          { top: '0px', left: '0px', width: '100vw', height: '100vh', borderRadius: '0px', paddingLeft: '8vw', paddingRight: '8vw' },
+        ],
+        { duration: 550, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'forwards' },
+      );
+      grow.finished.then(() => {
+        go();
+        return veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 150, easing: 'ease-out', fill: 'forwards' }).finished;
+      }).finally(() => {
+        veil.remove();
+        busy = false;
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Pekaren över en ruta: den blir lite större och de andra lite mindre.
+     Tar du bort det här blocket försvinner effekten. Använder `scale` (inte transform) så att inglidningen inte krockar. */
+  @media (hover: hover) and (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .ov-card { transition: scale 300ms cubic-bezier(0.22, 1, 0.36, 1); }
+    .ov-grid:hover .ov-card:not(:hover) { scale: 0.97; }
+    .ov-card:hover { scale: 1.04; position: relative; z-index: 1; }
+  }
+</style>

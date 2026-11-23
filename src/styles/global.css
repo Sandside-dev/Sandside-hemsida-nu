@@ -11,23 +11,25 @@
   --font-sans: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-ink: #121212;      /* svart */
+  /* Vitt och blått. Förra paletten (svart/varm/orange): ink #121212, sand #f4f2ee, sand-2 #ebe7e0,
+     line #e4e0d9, muted #6f6a62, sun #ff6a13, sun-dark #e35400, sun-soft #ffe7d6. */
+  --color-ink: #0a1f5c;      /* marinblått (ersätter svart) */
   --color-paper: #ffffff;    /* vitt */
-  --color-sand: #f4f2ee;     /* ljusa ytor, en aning varm */
-  --color-sand-2: #ebe7e0;
-  --color-line: #e4e0d9;
-  --color-muted: #6f6a62;
-  --color-sun: #ff6a13;      /* orange detaljfärg */
-  --color-sun-dark: #e35400;
-  --color-sun-soft: #ffe7d6;
+  --color-sand: #eef3ff;     /* ljusblå ytor */
+  --color-sand-2: #dde7fb;
+  --color-line: #d3dff5;
+  --color-muted: #5a6b92;
+  --color-sun: #1f5eff;      /* klarblå detaljfärg */
+  --color-sun-dark: #1747c9;
+  --color-sun-soft: #dbe6ff;
 
   --animate-marquee: marquee 38s linear infinite;
   --animate-pulse-dot: pulse-dot 2.2s ease-in-out infinite;
 
   @keyframes marquee { to { transform: translateX(-50%); } }
   @keyframes pulse-dot {
-    0%, 100% { box-shadow: 0 0 0 0 rgb(255 106 19 / 0.45); }
-    50% { box-shadow: 0 0 0 5px rgb(255 106 19 / 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgb(31 94 255 / 0.45); }
+    50% { box-shadow: 0 0 0 5px rgb(31 94 255 / 0); }
   }
 }
 
@@ -66,8 +68,11 @@
   .on-dark .label-line::before { background: linear-gradient(90deg, var(--color-sun) 0 40%, rgb(255 255 255 / 0.15) 40%); }
 
   /* Avskurna hörn */
+  /* Avskurna hörn avstängda. Ta bort kommentaren runt raderna nedan för att få tillbaka dem.
   .cut-br { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut, 64px)), calc(100% - var(--cut, 64px)) 100%, 0 100%); }
   .cut-tr { clip-path: polygon(0 0, calc(100% - var(--cut, 28px)) 0, 100% var(--cut, 28px), 100% 100%, 0 100%); }
+  */
+  .cut-br, .cut-tr { clip-path: none; }
 
   .fade-x { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 }

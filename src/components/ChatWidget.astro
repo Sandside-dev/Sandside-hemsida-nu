@@ -28,7 +28,7 @@ const replies = {
     </div>
     <p class="mt-2 text-[16px] font-medium leading-snug">Hej, jag heter {bot}! Jag är en chattbot som Sandside har byggt. Vill du veta hur en sån skulle funka hos er?</p>
     <div class="mt-3 flex flex-wrap gap-2">
-      <button type="button" data-quick="chattbot" class="flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[13px] font-medium text-white hover:bg-black">
+      <button type="button" data-quick="chattbot" class="flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[13px] font-medium text-white hover:bg-sun-dark">
         Ja, berätta <span class="size-1.5 rounded-full bg-sun"></span>
       </button>
       <button type="button" data-quick="pris" class="rounded-full border border-line px-3.5 py-2 text-[13px] font-medium hover:border-ink">Vad kostar det?</button>
@@ -45,10 +45,10 @@ const replies = {
   >
     <div class="flex items-center gap-3 border-b border-line bg-sand px-4 py-3">
       <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
-        <defs><radialGradient id="sunA" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffb070" /><stop offset="1" stop-color="#ff6a13" /></radialGradient></defs>
+        <defs><radialGradient id="sunA" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#8fb0ff" /><stop offset="1" stop-color="#1f5eff" /></radialGradient></defs>
         <circle cx="20" cy="20" r="20" fill="url(#sunA)" />
-        <circle cx="15" cy="18" r="1.8" fill="#121212" /><circle cx="25" cy="18" r="1.8" fill="#121212" />
-        <path d="M14.5 24c1.6 2 3.4 2.8 5.5 2.8s3.9-.8 5.5-2.8" fill="none" stroke="#121212" stroke-width="1.8" stroke-linecap="round" />
+        <circle cx="15" cy="18" r="1.8" fill="#0a1f5c" /><circle cx="25" cy="18" r="1.8" fill="#0a1f5c" />
+        <path d="M14.5 24c1.6 2 3.4 2.8 5.5 2.8s3.9-.8 5.5-2.8" fill="none" stroke="#0a1f5c" stroke-width="1.8" stroke-linecap="round" />
       </svg>
       <div class="flex-1">
         <p class="text-[16px] font-bold leading-tight">{bot}</p>
@@ -70,7 +70,7 @@ const replies = {
 
     <form data-chat-form class="flex items-center gap-2 border-t border-line p-3">
       <input name="q" autocomplete="off" placeholder="Skriv en fråga…" aria-label="Din fråga" class="h-11 flex-1 rounded-full bg-sand px-4 text-[15px] outline-none placeholder:text-muted focus:ring-2 focus:ring-sun/40" />
-      <button type="submit" aria-label="Skicka" class="grid size-11 place-items-center rounded-full bg-ink text-white hover:bg-black">
+      <button type="submit" aria-label="Skicka" class="grid size-11 place-items-center rounded-full bg-ink text-white hover:bg-sun-dark">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" /></svg>
       </button>
     </form>
@@ -85,10 +85,10 @@ const replies = {
     class="group flex items-center gap-3 rounded-full bg-ink p-1.5 pr-1.5 text-white shadow-[0_16px_40px_-12px_rgba(0,0,0,0.45)] transition-transform hover:-translate-y-0.5"
   >
     <svg width="44" height="44" viewBox="0 0 40 40" aria-hidden="true">
-      <defs><radialGradient id="sunB" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffb070" /><stop offset="1" stop-color="#ff6a13" /></radialGradient></defs>
+      <defs><radialGradient id="sunB" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#8fb0ff" /><stop offset="1" stop-color="#1f5eff" /></radialGradient></defs>
       <circle cx="20" cy="20" r="20" fill="url(#sunB)" />
-      <circle cx="15" cy="18" r="1.8" fill="#121212" /><circle cx="25" cy="18" r="1.8" fill="#121212" />
-      <path d="M14.5 24c1.6 2 3.4 2.8 5.5 2.8s3.9-.8 5.5-2.8" fill="none" stroke="#121212" stroke-width="1.8" stroke-linecap="round" />
+      <circle cx="15" cy="18" r="1.8" fill="#0a1f5c" /><circle cx="25" cy="18" r="1.8" fill="#0a1f5c" />
+      <path d="M14.5 24c1.6 2 3.4 2.8 5.5 2.8s3.9-.8 5.5-2.8" fill="none" stroke="#0a1f5c" stroke-width="1.8" stroke-linecap="round" />
     </svg>
     <span class="text-[15px] font-medium">Fråga {bot}</span>
     <span class="ml-3 grid size-11 place-items-center rounded-full bg-sun transition-transform group-aria-expanded:rotate-45" aria-hidden="true">
