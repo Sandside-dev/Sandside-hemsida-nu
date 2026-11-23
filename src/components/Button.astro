@@ -1,28 +1,48 @@
 ---
-// Knapp. dark = svart (huvudknapp), light = vit med kant, text = bara text med pil.
-interface Props {
-  href: string;
-  variant?: 'dark' | 'light' | 'text' | 'inverted';
+// Knapp med pilruta till höger. Pilen glider ut och en ny glider in vid hover.
+// variant: dark (svart med orange ruta), light (vit), orange (orange med svart ruta)
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = {
+  href?: string;
+  variant?: 'dark' | 'light' | 'orange';
   class?: string;
-  [key: string]: unknown;
-}
-const { href, variant = 'dark', class: cls = '', ...rest } = Astro.props;
+  type?: 'button' | 'submit';
+} & Omit<HTMLAttributes<'a'>, 'type'> &
+  Record<`data-${string}`, string | boolean>;
+
+const { href, variant = 'dark', class: cls = '', type = 'button', ...rest } = Astro.props;
+const classes = ['btn', `btn-${variant}`, cls];
 ---
 
-<a
-  href={href}
-  class:list={[
-    'group inline-flex items-center justify-center gap-2 text-[16px] font-medium transition-colors duration-200',
-    variant === 'dark' && 'h-12 rounded-full bg-ink px-6 text-white hover:bg-black',
-    variant === 'inverted' && 'h-12 rounded-full bg-white px-6 text-ink hover:bg-sand',
-    variant === 'light' && 'h-12 rounded-full border border-ink/15 bg-white px-6 text-ink hover:border-ink',
-    variant === 'text' && 'h-12 px-1 text-ink underline decoration-ink/20 underline-offset-[6px] hover:decoration-sun',
-    cls,
-  ]}
-  {...rest}
->
-  <slot />
-  <svg class="transition-transform duration-200 group-hover:translate-x-0.5" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M3 8h10M9 4l4 4-4 4"></path>
-  </svg>
-</a>
+{
+  href ? (
+    <a href={href} class:list={classes} {...rest}>
+      <span class="truncate">
+        <slot />
+      </span>
+      <span class="btn-icon" aria-hidden="true">
+        <svg viewBox="0 0 14 14" fill="none">
+          <path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8" />
+        </svg>
+        <svg viewBox="0 0 14 14" fill="none">
+          <path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8" />
+        </svg>
+      </span>
+    </a>
+  ) : (
+    <button type={type} class:list={classes} {...(rest as Record<string, unknown>)}>
+      <span class="truncate">
+        <slot />
+      </span>
+      <span class="btn-icon" aria-hidden="true">
+        <svg viewBox="0 0 14 14" fill="none">
+          <path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8" />
+        </svg>
+        <svg viewBox="0 0 14 14" fill="none">
+          <path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8" />
+        </svg>
+      </span>
+    </button>
+  )
+}

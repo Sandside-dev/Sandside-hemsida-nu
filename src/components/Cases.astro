@@ -1,0 +1,151 @@
+---
+import SectionLabel from './SectionLabel.astro';
+import Logo from './Logo.astro';
+
+// ÄNDRA: byt mot riktiga kundcase när ni har dem (kund, resultat och siffror).
+// Siffrorna här beskriver hur chattbotten fungerar, inte resultat hos en kund.
+const cases = [
+  {
+    industry: 'Trafikskola',
+    chatName: 'Trafikskolans chatt',
+    icon: '<path d="M5 16.5h14M6.5 16.5V19M17.5 16.5V19M4.5 16.5l1.6-5.2A2 2 0 0 1 8 9.9h8a2 2 0 0 1 1.9 1.4l1.6 5.2"/><circle cx="8" cy="14" r=".9"/><circle cx="16" cy="14" r=".9"/>',
+    title: 'Trafikskolan: eleverna får svar om lektioner, priser och teoriprov direkt',
+    stats: [
+      { value: '24/7', label: 'Svarar dygnet runt' },
+      { value: '< 10 sek', label: 'Tid till svar' },
+      { value: 'Er info', label: 'Svaren bygger på' },
+    ],
+    chat: [
+      { from: 'user', text: 'Hej! Vad kostar ett intensivpaket för B-körkort?' },
+      { from: 'bot', text: 'Intensivpaketet kostar 14 900 kr och innehåller 15 lektioner, riskettan och halkan. Vill du se lediga startdatum?' },
+      { from: 'user', text: 'Ja, gärna i januari.' },
+      { from: 'bot', text: 'Det finns plats från 12 januari och 26 januari. Ska jag skicka en intresseanmälan till skolan?' },
+    ],
+  },
+  {
+    industry: 'Frisör',
+    chatName: 'Salongens chatt',
+    icon: '<circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/><path d="M8.3 15.3 18 5M15.7 15.3 6 5"/>',
+    title: 'Frisören slipper svara på samma frågor mellan kunderna',
+    stats: [
+      { value: 'Kvällar', label: 'Och helger' },
+      { value: 'Direkt', label: 'Svar på prisfrågor' },
+      { value: 'Till er', label: 'När det behövs' },
+    ],
+    chat: [
+      { from: 'user', text: 'Hur lång tid tar slingor i halvlångt hår?' },
+      { from: 'bot', text: 'Räkna med ungefär 2,5 timmar inklusive klippning. Priset börjar på 1 650 kr.' },
+      { from: 'user', text: 'Kan jag prata med någon om färgen först?' },
+      { from: 'bot', text: 'Absolut! Lämna ditt nummer så ringer någon i salongen upp dig i morgon förmiddag.' },
+    ],
+  },
+];
+---
+
+<section id="exempel" class="py-24 md:py-[100px]">
+  <div class="wrap">
+    <SectionLabel text="Exempel" />
+    <h2 class="h2 mt-6" data-reveal>Så kan det se ut</h2>
+
+    <div class="mt-10 space-y-6 md:mt-12 md:space-y-8">
+      {
+        cases.map((c, ci) => (
+          <article class="grid min-w-0 md:grid-cols-[1.1fr_1fr]" data-reveal>
+            <div class="flex min-h-[420px] min-w-0 flex-col bg-surface p-6 md:min-h-[466px] md:p-8">
+              <div class="flex items-center justify-between gap-4">
+                <span class="flex items-center gap-2 text-[15px] font-bold tracking-[-0.02em]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="size-[22px] text-orange"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    set:html={c.icon}
+                  />
+                  {c.industry}
+                </span>
+                <span class="mono text-ink">/Exempel</span>
+              </div>
+
+              <h3 class="mt-auto max-w-[460px] pt-14 text-[28px] font-bold leading-[1.15] tracking-[-0.045em] md:text-[40px] md:leading-[1.2]">
+                {c.title}
+              </h3>
+
+              <div class="rule mt-10 md:mt-14" />
+              <dl class="mt-6 grid grid-cols-3 gap-4">
+                {c.stats.map((s) => (
+                  <div class="min-w-0">
+                    <dt class="sr-only">{s.label}</dt>
+                    <dd class="text-[22px] font-medium leading-none tracking-[-0.04em] md:text-[32px]">{s.value}</dd>
+                    <dd class="mono-sm mt-3 text-ink" aria-hidden="true">
+                      {s.label}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <!-- Chattfönstret på orange-till-svart bakgrund -->
+            <div
+              class="cut-tr relative flex min-h-[440px] min-w-0 items-center justify-center overflow-hidden p-5 [--cut:40px] md:p-10"
+              style="background: radial-gradient(120% 95% at 88% 0%, #ff9a52 0%, #ff6a13 26%, #a33a00 58%, #2a1306 82%, #131313 100%);"
+            >
+              <div
+                class="w-full max-w-[360px] overflow-hidden rounded-[14px] bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.55)]"
+                data-demo-chat
+                data-script={JSON.stringify(c.chat)}
+                role="img"
+                aria-label={`Exempel på samtal med chattbotten: ${c.chat.map((m) => m.text).join(' ')}`}
+              >
+                <div class="flex items-center gap-3 border-b border-line px-4 py-3">
+                  <span class="grid size-9 place-items-center rounded-full bg-surface">
+                    <svg viewBox="0 0 26 26" class="size-6" aria-hidden="true">
+                      <path d="M4 14a9 9 0 0 1 18 0z" fill="#ff6a13" />
+                      <path d="M2.5 18.2c1.75 0 1.75-1.3 3.5-1.3s1.75 1.3 3.5 1.3 1.75-1.3 3.5-1.3 1.75 1.3 3.5 1.3 1.75-1.3 3.5-1.3 1.75 1.3 3.5 1.3" fill="none" stroke="#131313" stroke-width="1.8" stroke-linecap="round" />
+                    </svg>
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block text-[15px] font-bold leading-tight tracking-[-0.02em]">{c.chatName}</span>
+                    <span class="flex items-center gap-1.5 text-[13px] text-muted">
+                      <span class="size-1.5 rounded-full bg-[#22a55a]" />
+                      Svarar direkt
+                    </span>
+                  </span>
+                </div>
+                <div class="flex h-[300px] flex-col justify-end gap-2 overflow-hidden bg-white px-4 py-4" data-log aria-hidden="true">
+                  {c.chat.map((m) => (
+                    <p
+                      class:list={[
+                        'max-w-[85%] rounded-[14px] px-3.5 py-2.5 text-[14px] leading-[1.45]',
+                        m.from === 'user' ? 'self-end rounded-br-[4px] bg-ink text-white' : 'self-start rounded-bl-[4px] bg-surface',
+                      ]}
+                      data-static
+                    >
+                      {m.text}
+                    </p>
+                  ))}
+                </div>
+                <div class="flex items-center gap-2 border-t border-line px-3 py-2.5" aria-hidden="true">
+                  <span class="flex-1 rounded-full bg-surface px-3.5 py-2 text-[13px] text-muted">Skriv en fråga …</span>
+                  <span class="grid size-8 place-items-center rounded-full bg-orange">
+                    <svg viewBox="0 0 16 16" class="size-3.5" fill="none" aria-hidden="true">
+                      <path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" stroke="#131313" stroke-width="1.8" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <span class="mono-sm absolute bottom-4 left-5 text-white/70">/0{ci + 1} · {c.industry}</span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/demo-chat';
+</script>

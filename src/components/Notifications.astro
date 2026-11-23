@@ -1,0 +1,89 @@
+---
+// Kundfrågorna som dyker upp runt rubriken, en i taget, som en kort film.
+// Filmen startar när avsnittet kommer in i bild. Scrollen låses aldrig.
+// Positionerna (top/left i procent) gäller mobil först, sedan md: för dator.
+// at = när kortet dyker upp, i millisekunder från start.
+const items = [
+  { time: 'Fre 21:47', text: '"Kan jag boka en körlektion på lördag?"', pos: 'left-0 top-[9%] md:left-[3%] md:top-[13%]', at: 200 },
+  { time: 'Lör 08:12', text: '"Har ni en ledig tid för klippning i dag?"', pos: 'right-0 top-[20%] md:right-auto md:left-[59%] md:top-[19%]', at: 900 },
+  { time: 'Sön 23:05', text: '"Vad kostar en mindre tatuering?"', pos: 'left-[4%] top-[31%] md:left-[9%] md:top-[63%]', at: 1600 },
+  { time: 'Mån 06:40', text: '"Hur avbokar jag mitt PT-pass?"', pos: 'right-0 top-[74%] md:left-[66%] md:right-auto md:top-[69%]', at: 2300 },
+];
+---
+
+<section data-notif-section class="relative h-[100svh] min-h-[640px] max-h-[960px] overflow-hidden bg-white" aria-labelledby="notif-title">
+  <div class="wrap relative h-full">
+    <h2 id="notif-title" class="h2 absolute inset-x-0 top-1/2 mx-auto max-w-[12ch] -translate-y-1/2 text-center sm:max-w-none">
+      Kunderna väntar inte till måndag.
+    </h2>
+
+    {
+      items.map((n) => (
+        <div class:list={['absolute', n.pos]}>
+          <p class="notif" data-at={n.at}>
+            <svg class="mt-[3px] size-[18px] shrink-0 text-orange md:mt-[7px]" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M3.5 4.5h13v9h-7l-4 3v-3h-2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+            </svg>
+            <span>
+              {n.time} · {n.text}
+            </span>
+          </p>
+        </div>
+      ))
+    }
+
+    <!-- Autosvaret: det kunden får i dag -->
+    <div class="absolute left-[2%] top-[86%] md:left-[30%] md:top-[83%]">
+      <p class="notif" data-at="3000" data-dim-at="4400">
+        <svg class="mt-[3px] size-[18px] shrink-0 text-ink/45 md:mt-[7px]" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <rect x="2.75" y="4.75" width="14.5" height="10.5" rx="1" stroke="currentColor" stroke-width="1.6"></rect>
+          <path d="m3.5 5.5 6.5 5 6.5-5" stroke="currentColor" stroke-width="1.6"></path>
+        </svg>
+        <span>Autosvar: "Vi har stängt nu och återkommer så snart vi kan."</span>
+      </p>
+    </div>
+
+    <!-- Chattbottens svar -->
+    <div class="absolute left-0 top-[61%] md:left-1/2 md:top-[60%] md:-ml-[160px]">
+      <div class="notif bg-ink text-white md:max-w-[320px]" data-at="4100">
+        <span class="relative mt-[7px] size-2 shrink-0 rounded-full bg-orange md:mt-[12px]" aria-hidden="true"></span>
+        <span>
+          <span class="mono-sm block pb-1 text-white/55">Chattbotten · Fre 21:47</span>
+          "Ja, lördag kl. 10 är ledig. Vill du att jag bokar den?"
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-notif-section]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (section) {
+    const cards = [...section.querySelectorAll<HTMLElement>('[data-at]')];
+
+    if (reduce || !('IntersectionObserver' in window)) {
+      // Visa allt direkt, utan animation
+      cards.forEach((c) => {
+        c.classList.add('is-on');
+        if (c.dataset.dimAt) c.classList.add('is-dim');
+      });
+    } else {
+      // Spela filmen en gång, när ungefär en tredjedel av avsnittet syns
+      const io = new IntersectionObserver(
+        ([e]) => {
+          if (!e.isIntersecting) return;
+          io.disconnect();
+          cards.forEach((c) => {
+            setTimeout(() => c.classList.add('is-on'), Number(c.dataset.at));
+            const dim = c.dataset.dimAt;
+            if (dim) setTimeout(() => c.classList.add('is-dim'), Number(dim));
+          });
+        },
+        { threshold: 0.35 },
+      );
+      io.observe(section);
+    }
+  }
+</script>

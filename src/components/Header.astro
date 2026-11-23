@@ -1,56 +1,125 @@
 ---
 import Logo from './Logo.astro';
-
-const links = [
-  { href: '/#losningar', label: 'Lösningar' },
-  { href: '/#kalkyl', label: 'Räkna själv' },
-  { href: '/#priser', label: 'Priser' },
-  { href: '/#om-oss', label: 'Om oss' },
-  { href: '/#fragor', label: 'Frågor' },
-];
+import { nav } from '../data/site';
 ---
 
-<header
-  data-header
-  class="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-white/85 backdrop-blur-md transition-colors duration-300 data-[scrolled]:border-line"
->
-  <div class="wrap flex h-16 items-center justify-between gap-6">
-    <a href="/" aria-label="Sandside, till startsidan"><Logo /></a>
+<header data-header class="fixed inset-x-0 top-0 z-50">
+  <div class="wrap flex h-[72px] items-center justify-between gap-6">
+    <a href="/" class="-m-2 shrink-0 p-2" aria-label="Sandside, till startsidan">
+      <Logo class="h-[24px] w-auto md:h-[26px]" />
+    </a>
 
-    <nav aria-label="Huvudmeny" class="hidden md:block">
-      <ul class="flex items-center gap-7 text-[15px] text-ink/75">
-        {links.map((l) => <li><a href={l.href} class="transition-colors hover:text-ink">{l.label}</a></li>)}
+    <nav aria-label="Huvudmeny" class="hidden lg:block">
+      <ul class="flex items-center gap-10 xl:gap-12">
+        {
+          nav.map((n) => (
+            <li>
+              <a href={n.href} class="mono block py-2 text-ink transition-colors hover:text-ink/60" data-scramble-hover>
+                {n.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
 
-    <div class="flex items-center gap-2">
-      <a href="/#boka" class="inline-flex h-10 items-center rounded-full bg-ink px-5 text-[15px] font-medium text-white transition-colors hover:bg-black">
-        Boka möte
-      </a>
+    <div class="flex items-center gap-2.5 sm:gap-3">
       <button
         type="button"
-        data-menu-btn
+        class="grid size-11 place-items-center rounded-[4px] border border-ink/12 bg-white lg:hidden"
         aria-expanded="false"
         aria-controls="mobilmeny"
-        aria-label="Öppna meny"
-        class="group grid size-10 place-items-center rounded-full border border-line md:hidden"
+        aria-label="Öppna menyn"
+        data-menu-toggle
       >
-        <span class="relative block h-2.5 w-4" aria-hidden="true">
-          <span class="absolute left-0 top-0 h-[1.5px] w-4 bg-ink transition-transform duration-300 group-aria-expanded:translate-y-[4.5px] group-aria-expanded:rotate-45"></span>
-          <span class="absolute bottom-0 left-0 h-[1.5px] w-4 bg-ink transition-transform duration-300 group-aria-expanded:-translate-y-[4.5px] group-aria-expanded:-rotate-45"></span>
-        </span>
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true" class="overflow-visible">
+          <path data-bar="1" d="M0 1h20" stroke="currentColor" stroke-width="1.8" class="origin-center transition-transform duration-300 [transform-box:fill-box]"></path>
+          <path data-bar="2" d="M0 7h20" stroke="currentColor" stroke-width="1.8" class="transition-opacity duration-200"></path>
+          <path data-bar="3" d="M0 13h20" stroke="currentColor" stroke-width="1.8" class="origin-center transition-transform duration-300 [transform-box:fill-box]"></path>
+        </svg>
       </button>
+      <a href="/#boka" class="btn-nav">Boka demo</a>
+      <button type="button" class="btn-nav hidden sm:inline-flex" data-open-chat>Testa chatten</button>
     </div>
   </div>
 
-  <nav
-    id="mobilmeny"
-    data-menu
-    aria-label="Mobilmeny"
-    class="pointer-events-none invisible absolute inset-x-0 top-16 border-b border-line bg-white opacity-0 transition-opacity duration-200 data-[open]:pointer-events-auto data-[open]:visible data-[open]:opacity-100 md:hidden"
-  >
-    <ul class="wrap py-3">
-      {links.map((l) => <li><a href={l.href} class="block border-b border-line py-4 text-[20px] font-medium last:border-0">{l.label}</a></li>)}
-    </ul>
-  </nav>
+  <!-- Mobilmeny -->
+  <div id="mobilmeny" class="h-[calc(100svh-72px)] overflow-y-auto bg-white lg:hidden" data-menu hidden>
+    <nav aria-label="Mobilmeny" class="wrap flex min-h-full flex-col pb-8 pt-4">
+      <ul class="border-t border-line">
+        {
+          nav.map((n, i) => (
+            <li class="border-b border-line">
+              <a href={n.href} class="flex items-baseline justify-between py-5" data-menu-link>
+                <span class="text-[32px] font-bold leading-none tracking-[-0.04em]">{n.label}</span>
+                <span class="mono text-muted">/0{i + 1}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-auto grid gap-2 pt-10">
+        <a href="/#boka" class="btn btn-dark w-full" data-menu-link>
+          <span>Boka kostnadsfri demo</span>
+          <span class="btn-icon" aria-hidden="true">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8"></path></svg>
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8"></path></svg>
+          </span>
+        </a>
+        <button type="button" class="btn btn-light w-full" data-open-chat data-menu-link>
+          <span>Testa chattbotten</span>
+          <span class="btn-icon" aria-hidden="true">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8"></path></svg>
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.8"></path></svg>
+          </span>
+        </button>
+      </div>
+    </nav>
+  </div>
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')!;
+  const toggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+  const menu = header.querySelector<HTMLElement>('[data-menu]')!;
+  const bars = toggle.querySelectorAll<SVGPathElement>('[data-bar]');
+
+  let lastY = window.scrollY;
+  let open = false;
+
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 8);
+    if (!open) header.classList.toggle('is-hidden', y > lastY && y > 240);
+    lastY = y;
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Visa sidhuvudet igen när man tabbar in i det
+  header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
+
+  const setOpen = (v: boolean) => {
+    open = v;
+    menu.hidden = !v;
+    toggle.setAttribute('aria-expanded', String(v));
+    toggle.setAttribute('aria-label', v ? 'Stäng menyn' : 'Öppna menyn');
+    header.classList.toggle('menu-open', v);
+    header.classList.remove('is-hidden');
+    document.documentElement.style.overflow = v ? 'hidden' : '';
+    document.documentElement.classList.toggle('menu-is-open', v);
+    bars[0].style.transform = v ? 'translateY(6px) rotate(45deg)' : '';
+    bars[1].style.opacity = v ? '0' : '';
+    bars[2].style.transform = v ? 'translateY(-6px) rotate(-45deg)' : '';
+  };
+
+  toggle.addEventListener('click', () => setOpen(!open));
+  menu.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && open) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => e.matches && setOpen(false));
+</script>

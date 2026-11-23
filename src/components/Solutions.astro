@@ -1,100 +1,73 @@
 ---
-const more = [
-  { title: 'Hemsidor', text: 'För er som saknar hemsida eller har en gammal. Den fungerar i mobilen, och ni kan ändra texter och bilder själva.' },
-  { title: 'Automatiska flöden', text: 'En kund bokar. Bekräftelsen skickas, tiden hamnar i kalendern och en påminnelse går ut dagen innan.' },
-  { title: 'AI-genomgång', text: 'Vi går igenom en vanlig arbetsvecka hos er och ger er en skriftlig lista över var ni kan spara mest tid.' },
+import SectionLabel from './SectionLabel.astro';
+
+const cards = [
+  {
+    icon: 'bubble',
+    title: 'Chattbot för hemsidan',
+    text: 'En digital kollega som svarar på kundernas frågor dygnet runt. Den är tränad på er information, som priser, öppettider och regler, och svarar i er ton.',
+  },
+  {
+    icon: 'plane',
+    title: 'Skickar vidare till er',
+    text: 'När en fråga kräver en människa tar chattbotten namn och kontaktuppgifter och skickar ärendet till er. Ingen kund blir utan svar.',
+  },
 ];
 ---
 
-<section id="losningar" class="section">
+<section id="losningen" class="py-24 md:py-[150px]">
   <div class="wrap">
-    <div class="max-w-[640px]">
-      <h2 class="h2">Det här bygger vi</h2>
-      <p class="lead mt-5">
-        Vi börjar alltid med att ta reda på vad som tar onödig tid hos er. Sedan bygger vi det som passar, utifrån hur
-        just ni jobbar.
+    <SectionLabel text="Vår lösning" />
+    <div class="mt-6 grid gap-5 md:grid-cols-2 md:gap-10">
+      <h2 class="h2" data-reveal>Vår chattbot</h2>
+      <p class="max-w-[500px] text-[16px] leading-[1.5] md:justify-self-end md:pt-2" data-reveal style="--d:100ms">
+        Vi bygger chattbottar som faktiskt används. De tränas på er verksamhet, finns på hemsidan dygnet runt och
+        lämnar över till er när det behövs. Ni testar botten innan den går live.
       </p>
     </div>
 
-    <div class="mt-14 grid gap-5 lg:grid-cols-12 [&>*]:min-w-0">
-      <!-- Chattbot -->
-      <article class="flex flex-col overflow-hidden rounded-[20px] bg-sand lg:col-span-7" data-reveal>
-        <div class="p-7 md:p-9">
-          <p class="eyebrow">Vår huvudprodukt</p>
-          <h3 class="mt-2 text-[28px] font-medium tracking-[-0.025em]">Chattbot för hemsidan</h3>
-          <p class="mt-3 max-w-[48ch] text-ink/70">
-            Svarar på kundernas vanligaste frågor dygnet runt: priser, öppettider och hur man bokar. Den svarar bara
-            utifrån er information, och svåra frågor går vidare till er.
-          </p>
-        </div>
-        <!-- Liten bild av en hemsida med chatten i hörnet -->
-        <div class="relative mt-auto px-7 md:px-9" aria-hidden="true">
-          <div class="rounded-t-[14px] border border-b-0 border-ink/10 bg-white shadow-[0_-10px_40px_-20px_rgba(0,0,0,0.25)]">
-            <div class="flex items-center gap-1.5 border-b border-line px-4 py-2.5">
-              <span class="size-2.5 rounded-full bg-ink/10"></span><span class="size-2.5 rounded-full bg-ink/10"></span><span class="size-2.5 rounded-full bg-ink/10"></span>
-              <span class="ml-3 rounded-full bg-sand px-3 py-0.5 text-[11px] text-muted">salongen.se</span>
-            </div>
-            <div class="relative h-[230px] p-5">
-              <div class="h-3 w-24 rounded bg-ink/80"></div>
-              <div class="mt-5 h-2 w-3/5 rounded bg-ink/10"></div>
-              <div class="mt-2 h-2 w-2/5 rounded bg-ink/10"></div>
-              <div class="mt-6 grid w-1/2 grid-cols-2 gap-2"><div class="h-14 rounded-lg bg-sand"></div><div class="h-14 rounded-lg bg-sand"></div></div>
-              <div class="absolute bottom-0 right-4 w-[230px] rounded-t-[12px] border border-b-0 border-ink/10 bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)] sm:right-5">
-                <div class="flex items-center gap-2 border-b border-line px-3 py-2 text-[12px] font-semibold">
-                  <span class="size-1.5 rounded-full bg-[#2fa84f]"></span>Salongen · chatt
-                </div>
-                <div class="space-y-1.5 p-3 text-[12px] leading-snug">
-                  <p class="ml-auto w-fit max-w-[85%] rounded-[10px] rounded-br-[3px] bg-ink px-2.5 py-1.5 text-white">Har ni öppet på söndag?</p>
-                  <p class="w-fit max-w-[90%] rounded-[10px] rounded-bl-[3px] bg-sand px-2.5 py-1.5">Nej, men lördag 10–15. Vill du boka en tid?</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- AI-receptionist -->
-      <article class="flex flex-col overflow-hidden rounded-[20px] bg-ink text-white lg:col-span-5" data-reveal style="--d:100ms">
-        <div class="p-7 md:p-9">
-          <p class="text-[14px] font-medium text-white/55">I telefon</p>
-          <h3 class="mt-2 text-[28px] font-medium tracking-[-0.025em]">AI-receptionist</h3>
-          <p class="mt-3 max-w-[44ch] text-white/70">
-            Tar samtalen när ni står på en stege eller har gått hem. Den pratar med kunden och skickar en
-            sammanfattning till er efter varje samtal.
-          </p>
-        </div>
-        <!-- Samtalssammanfattning -->
-        <div class="mt-auto px-7 pb-7 md:px-9 md:pb-9" aria-hidden="true">
-          <div class="rounded-[14px] bg-white p-4 text-ink">
-            <div class="flex items-center gap-2 text-[12px] text-muted">
-              <span class="grid size-6 place-items-center rounded-[7px] bg-sun text-white">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15.8v2.6a1.8 1.8 0 0 1-2 1.8A16.6 16.6 0 0 1 3.8 6 1.8 1.8 0 0 1 5.6 4h2.6a1.8 1.8 0 0 1 1.8 1.5l.4 2.3a1.8 1.8 0 0 1-.5 1.6l-1.2 1.2a13 13 0 0 0 4.8 4.8l1.2-1.2a1.8 1.8 0 0 1 1.6-.5l2.3.4a1.8 1.8 0 0 1 1.4 1.7z"/></svg>
-              </span>
-              <span class="font-semibold text-ink">Samtal besvarat</span>
-              <span class="ml-auto font-mono">Tis 18:46 · 2:14</span>
-            </div>
-            <p class="mt-3 text-[14px] leading-relaxed">
-              Anna vill boka en klippning åt sin son, helst torsdag eftermiddag. Hon undrade också om ni tar Swish.
-            </p>
-            <div class="mt-3 flex flex-wrap gap-1.5 text-[12px]">
-              <span class="rounded-full bg-sun-soft px-2.5 py-1 font-medium text-sun-dark">Vill boka</span>
-              <span class="rounded-full bg-sand px-2.5 py-1 font-medium">Ring upp före 10:00</span>
-            </div>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <!-- Övriga tjänster -->
-    <div class="mt-5 grid border-t border-ink/10 md:grid-cols-3">
+    <div class="mt-10 grid gap-2 md:mt-14 md:grid-cols-2">
       {
-        more.map((s, i) => (
-          <div class:list={['border-b border-ink/10 py-7 md:border-b-0 md:py-9', i > 0 && 'md:border-l md:pl-8', i < 2 && 'md:pr-8']} data-reveal style={`--d:${i * 80}ms`}>
-            <h3 class="h3">{s.title}</h3>
-            <p class="mt-2 text-[16px] text-ink/70">{s.text}</p>
-          </div>
+        cards.map((c, i) => (
+          <article
+            class="group relative flex min-h-[400px] flex-col justify-end overflow-hidden bg-surface p-6 transition-colors duration-300 hover:bg-[#eeeeee] md:min-h-[330px]"
+            data-reveal
+            data-icon-card
+            style={`--d:${i * 100}ms`}
+          >
+            <canvas
+              data-icon-3d
+              data-icon={c.icon}
+              aria-hidden="true"
+              class="pointer-events-none absolute -right-4 -top-4 h-[230px] w-[290px] opacity-0 transition-opacity duration-700 md:-top-6 md:right-0 md:h-[250px] md:w-[320px] [&.is-ready]:opacity-100"
+            />
+            <h3 class="h3 relative">{c.title}</h3>
+            <p class="relative mt-3 max-w-[400px] text-[16px] leading-[1.5]">{c.text}</p>
+          </article>
         ))
       }
     </div>
   </div>
 </section>
+
+<script>
+  const canvases = [...document.querySelectorAll<HTMLCanvasElement>('[data-icon-3d]')];
+  if (canvases.length) {
+    // Ladda 3D först när korten närmar sig skärmen
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        import('../scripts/icons3d').then(({ initBubbleIcon, initPlaneIcon }) => {
+          canvases.forEach((c) => {
+            const card = c.closest<HTMLElement>('[data-icon-card]') ?? c;
+            if (c.dataset.icon === 'bubble') initBubbleIcon(c, card);
+            else initPlaneIcon(c, card);
+          });
+        });
+      },
+      { rootMargin: '400px 0px' },
+    );
+    canvases.forEach((c) => io.observe(c));
+  }
+</script>

@@ -1,26 +1,27 @@
 ---
-// Ordbild: en sol som går upp över vågor + namnet.
+// Sandsides logga (solen över vågorna + ordbilden), samma fil som i /logo.
+// tone="ink" = svart text, "white" = vit text, "mono" = allt i textfärgen (används i sidfotens stora logga).
+import raw from '../assets/sandside-logo.svg?raw';
+
 interface Props {
   class?: string;
-  inverted?: boolean;
+  tone?: 'ink' | 'white' | 'mono';
+  title?: string;
 }
-const { class: cls = '', inverted = false } = Astro.props;
+const { class: cls = 'h-[26px] w-auto', tone = 'ink', title } = Astro.props;
+
+let svg = raw
+  .replace(/<title>.*?<\/title>/, '')
+  .replace(/\swidth="[^"]*"/, '')
+  .replace(/\sheight="[^"]*"/, '')
+  .replace(/#121212/g, 'currentColor');
+if (tone === 'mono') svg = svg.replace(/#ff6a13/g, 'currentColor');
+
+const color = tone === 'white' ? 'text-white' : tone === 'ink' ? 'text-ink' : '';
+svg = svg.replace(
+  '<svg ',
+  `<svg class="${cls} ${color}" ${title ? `role="img" aria-label="${title}"` : 'aria-hidden="true"'} focusable="false" `,
+);
 ---
 
-<span class:list={['inline-flex items-center gap-2', cls]}>
-  <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-    <path d="M4 14a9 9 0 0 1 18 0z" fill="#ff6a13"></path>
-    <path
-      d="M2.5 18.2c1.75 0 1.75-1.3 3.5-1.3s1.75 1.3 3.5 1.3 1.75-1.3 3.5-1.3 1.75 1.3 3.5 1.3 1.75-1.3 3.5-1.3 1.75 1.3 3.5 1.3"
-      stroke={inverted ? '#fff' : '#121212'}
-      stroke-width="1.8"
-      stroke-linecap="round"></path>
-    <path
-      d="M5.5 22.4c1.25 0 1.25-1 2.5-1s1.25 1 2.5 1 1.25-1 2.5-1 1.25 1 2.5 1 1.25-1 2.5-1 1.25 1 2.5 1"
-      stroke={inverted ? '#fff' : '#121212'}
-      stroke-width="1.8"
-      stroke-linecap="round"
-      opacity="0.45"></path>
-  </svg>
-  <span class:list={['text-[19px] font-bold tracking-[-0.03em]', inverted ? 'text-white' : 'text-ink']}>Sandside</span>
-</span>
+<Fragment set:html={svg} />

@@ -1,31 +1,91 @@
 ---
-// Punkterna bygger på affärsplanen (tekniska lösningar och hållbarhet).
-// Lägg inte till något här som ni inte kan stå för, t.ex. avtal ni inte har än.
-const items = [
-  { title: 'Ni äger er bot', text: 'Chattbotten installeras i ert eget konto. Era data och ert avtal med leverantören är era.' },
-  { title: 'Data inom EU', text: 'Flöden och data ligger hos n8n i Frankfurt, och hemsidorna hos webbhotell inom EU.' },
-  { title: 'Ärlig AI', text: 'Botten säger alltid att den är en AI, och den svarar bara utifrån er egen information.' },
-  { title: 'Bara det som behövs', text: 'Vi samlar bara in de uppgifter lösningen behöver och bygger med testdata och tillfällig åtkomst.' },
-  { title: 'Inga låsningar', text: 'Vi bygger med vanliga verktyg som n8n och WordPress, så en annan utvecklare kan ta över om det behövs.' },
-  { title: 'En människa när det behövs', text: 'Frågor som botten inte kan svara på skickas vidare till er personal.' },
+import SectionLabel from './SectionLabel.astro';
+
+// ÄNDRA: stäm av varje punkt mot de verktyg ni faktiskt använder innan lansering.
+// Skriv aldrig certifieringar (ISO, SOC 2 …) som ni inte har.
+const circle = (cx: number, cy: number, r: number) => `M${cx - r} ${cy}a${r} ${r} 0 1 0 ${r * 2} 0a${r} ${r} 0 1 0 ${-r * 2} 0Z`;
+const ring = Array.from({ length: 12 }, (_, i) => {
+  const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
+  return circle(+(60 + Math.cos(a) * 46).toFixed(2), +(60 + Math.sin(a) * 46).toFixed(2), 3.4);
+}).join('');
+
+type Shape = { d: string; fill?: boolean };
+const items: { label: string; shapes: Shape[] }[] = [
+  {
+    label: 'Data inom EU',
+    shapes: [
+      { d: ring },
+      { d: 'M40 44v32a20 7 0 0 0 40 0V44a20 7 0 0 0-40 0Z' },
+      { d: 'M40 44a20 7 0 0 0 40 0M40 60a20 7 0 0 0 40 0', fill: false },
+    ],
+  },
+  {
+    label: 'Byggd för GDPR',
+    shapes: [
+      { d: 'M60 16 92 28v28c0 23-14 38-32 46-18-8-32-23-32-46V28Z' },
+      { d: 'm45 58 10 10 21-22', fill: false },
+    ],
+  },
+  {
+    label: 'Ni äger er data',
+    shapes: [
+      { d: `${circle(40, 60, 19)}` },
+      { d: 'M58 54h42v12h-7v10h-9V66h-6v7h-8v-7H58Z' },
+      { d: circle(36, 60, 6), fill: false },
+    ],
+  },
+  {
+    label: 'Bara er information',
+    shapes: [
+      { d: 'M34 18h38l16 16v68H34Z' },
+      { d: 'M72 18v16h16M46 52h30M46 64h30M46 76h20', fill: false },
+    ],
+  },
+  {
+    label: 'Människa vid behov',
+    shapes: [
+      { d: circle(46, 50, 13) },
+      { d: 'M22 98c0-19 10-28 24-28s24 9 24 28Z' },
+      { d: 'M76 22h24a6 6 0 0 1 6 6v16a6 6 0 0 1-6 6H88l-9 8v-8h-3a6 6 0 0 1-6-6V28a6 6 0 0 1 6-6Z' },
+    ],
+  },
 ];
 ---
 
-<section id="sakerhet" class="section">
+<section id="sakerhet" class="py-24 md:py-[100px]">
   <div class="wrap">
-    <div class="max-w-[640px]">
-      <h2 class="h2">Så hanterar vi era kunders uppgifter</h2>
-      <p class="lead mt-5">Era kunder delar namn, nummer och ibland känsliga saker. Det här gäller för allt vi bygger.</p>
-    </div>
-    <dl class="mt-14 grid gap-x-10 border-t border-line sm:grid-cols-2 lg:grid-cols-3">
+    <SectionLabel text="Säkerhet" />
+    <h2 class="h2 mt-6" data-reveal>Säkerhet</h2>
+
+    <ul class="mt-10 grid grid-cols-2 md:mt-12 lg:grid-cols-5">
       {
         items.map((it, i) => (
-          <div class="border-b border-line py-7" data-reveal style={`--d:${(i % 3) * 70}ms`}>
-            <dt class="h3">{it.title}</dt>
-            <dd class="mt-2 text-[16px] text-ink/70">{it.text}</dd>
-          </div>
+          <li
+            class:list={[
+              'relative flex h-[170px] flex-col border-l border-line px-3 py-3 md:h-[180px]',
+              i === items.length - 1 && 'col-span-2 lg:col-span-1',
+              i >= 2 && 'max-lg:border-t',
+            ]}
+            data-reveal
+            style={`--d:${i * 70}ms`}
+          >
+            <span class="mono text-muted">/0{i + 1}</span>
+            <svg viewBox="0 0 120 120" class="absolute left-1/2 top-1/2 size-[104px] -translate-x-1/2 -translate-y-[58%] md:size-[116px]" aria-hidden="true">
+              <g transform="translate(4 5)" fill="#d3d3d3" stroke="#c4c4c4" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+                {it.shapes.map((s) => (
+                  <path d={s.d} fill={s.fill === false ? 'none' : undefined} />
+                ))}
+              </g>
+              <g fill="#efefef" stroke="#9c9c9c" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+                {it.shapes.map((s) => (
+                  <path d={s.d} fill={s.fill === false ? 'none' : undefined} />
+                ))}
+              </g>
+            </svg>
+            <span class="mono relative mt-auto self-end text-right text-ink">{it.label}</span>
+          </li>
         ))
       }
-    </dl>
+    </ul>
   </div>
 </section>

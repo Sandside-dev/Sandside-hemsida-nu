@@ -1,19 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
 ---
 
-<Base title="Integritetspolicy – Sandside">
-  <Header />
-  <main class="wrap max-w-[760px] pb-24 pt-36">
-    <h1 class="h1">Integritetspolicy</h1>
-    <!-- ÄNDRA: den här sidan måste skrivas innan lansering. -->
-    <p class="lead mt-8">
-      Den här sidan uppdateras inom kort. Har du frågor om hur vi hanterar personuppgifter, mejla
-      <a href={`mailto:${site.email}`} class="underline underline-offset-4">{site.email}</a>.
-    </p>
-  </main>
-  <Footer />
+<Base title="Integritetspolicy – Sandside" description="Så hanterar Sandside UF personuppgifter.">
+  <section class="pb-24 pt-[120px] md:pb-32 md:pt-[150px]">
+    <div class="wrap max-w-[760px]">
+      <p class="mono text-muted">/Juridik</p>
+      <h1 class="h2 mt-5">Integritetspolicy</h1>
+      <!-- ÄNDRA: skriv den riktiga integritetspolicyn innan lansering. -->
+      <div class="mt-8 space-y-5 text-[17px] leading-[1.65] text-ink/80">
+        <p>
+          Den här sidan kommer att beskriva hur {site.legalName} samlar in, använder och skyddar personuppgifter när du
+          besöker hemsidan, chattar med oss eller bokar ett samtal.
+        </p>
+        <p>
+          Har du frågor om hur vi hanterar dina uppgifter redan nu är du välkommen att mejla oss på
+          <a class="font-bold text-ink underline" href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
 </Base>

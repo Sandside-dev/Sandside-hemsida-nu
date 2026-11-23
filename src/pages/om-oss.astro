@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Button from '../components/Button.astro';
+import { team, site } from '../data/site';
+
+const steps = [
+  {
+    title: 'Första mötet',
+    text: 'Vi pratar om vilka frågor era kunder ställer i dag och var svaren finns. Ni får ett fast pris innan vi börjar.',
+  },
+  {
+    title: 'Vi bygger chattbotten',
+    text: 'Vi tränar botten på er hemsida, prislista och annat material ni godkänner, och ger den er ton.',
+  },
+  {
+    title: 'Ni testar',
+    text: 'Ni testar botten på riktiga frågor innan den går live. Vi justerar tills ni är nöjda med svaren.',
+  },
+  {
+    title: 'Vi följer upp',
+    text: 'Ni får en skriftlig instruktion. Efter en vecka hör vi av oss och går igenom vad kunderna har frågat.',
+  },
+];
+const initials = (n: string) =>
+  n
+    .split(' ')
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+---
+
+<Base
+  title="Om oss – Människorna bakom Sandside"
+  description="Sandside UF drivs av fem elever i Göteborg. Vi bygger chattbottar åt små företag."
+>
+  <!-- Hero -->
+  <section class="pb-16 pt-[110px] md:pb-24 md:pt-[130px]">
+    <div class="wrap">
+      <p class="mono text-ink" data-reveal>
+        <span class="sr-only">Om oss</span><span aria-hidden="true" data-scramble>/Om oss · {site.name}</span>
+      </p>
+      <h1 class="h1 mt-5 max-w-[14ch] md:mt-6" data-reveal style="--d:80ms">Människorna bakom Sandside</h1>
+      <p class="lead mt-6 max-w-[760px] md:mt-8" data-reveal style="--d:160ms">
+        Hej! Vi är fem elever från {site.city} som driver {site.legalName}. Vi bygger chattbottar åt små företag som vill
+        att kunderna ska få svar, även när ingen hinner svara.
+      </p>
+
+      <!-- ÄNDRA: byt gärna mot ett gruppfoto när ni har ett -->
+      <div
+        class="relative mt-12 aspect-[4/3] w-full overflow-hidden md:mt-16 md:aspect-[16/7]"
+        style="background: radial-gradient(90% 120% at 80% 10%, #ff9a52 0%, #ff6a13 22%, #8f3300 52%, #1d0f06 78%, #131313 100%); --d:220ms"
+        data-reveal
+      >
+        <canvas
+          data-logo-3d
+          data-about
+          aria-hidden="true"
+          class="absolute inset-0 size-full opacity-0 transition-opacity duration-1000 [&.is-ready]:opacity-100"
+        ></canvas>
+        <span class="mono-sm absolute bottom-5 left-5 text-white/75">/{site.legalName} · {site.city}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Så jobbar vi -->
+  <section class="bg-surface py-24 md:py-[110px]">
+    <div class="wrap">
+      <SectionLabel text="01 · Så jobbar vi" />
+      <h2 class="h2 mt-6 max-w-[16ch]" data-reveal>Från första samtal till färdig chattbot.</h2>
+      <ol class="mt-10 grid gap-3 md:mt-14 md:grid-cols-2">
+        {
+          steps.map((s, i) => (
+            <li class="bg-white p-6 md:min-h-[200px] md:p-8" data-reveal style={`--d:${i * 70}ms`}>
+              <span class="mono-sm text-muted">0{i + 1}</span>
+              <h3 class="mt-4 text-[26px] font-bold leading-[1.15] tracking-[-0.04em] md:text-[30px]">{s.title}</h3>
+              <p class="mt-3 max-w-[460px] text-[16px] leading-[1.55] text-ink/75">{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Teamet -->
+  <section class="py-24 md:py-[110px]">
+    <div class="wrap">
+      <SectionLabel text="02 · Teamet" />
+      <div class="mt-6 grid gap-6 md:grid-cols-2 md:items-end">
+        <h2 class="h2" data-reveal>Människorna bakom chattbottarna.</h2>
+        <p class="max-w-[460px] text-[16px] leading-[1.5] md:justify-self-end" data-reveal style="--d:100ms">
+          Det här är ledningsgruppen i {site.legalName}. Det är vi som bygger, testar och följer upp er chattbot.
+        </p>
+      </div>
+
+      <ul class="mt-12 grid grid-cols-2 gap-x-3 gap-y-10 md:mt-16 lg:grid-cols-3 lg:gap-x-6">
+        {
+          team.map((m, i) => (
+            <li class="min-w-0" data-reveal style={`--d:${(i % 3) * 80}ms`}>
+              {m.photo ? (
+                <img
+                  src={m.photo}
+                  alt={m.name}
+                  width="400"
+                  height="500"
+                  loading="lazy"
+                  class="aspect-[4/5] w-full object-cover"
+                />
+              ) : (
+                <div class="group relative grid aspect-[4/5] w-full place-items-center overflow-hidden bg-surface">
+                  <span class="relative z-10 text-[44px] font-bold tracking-[-0.05em] text-ink/85 md:text-[64px]">
+                    {initials(m.name)}
+                  </span>
+                  <span
+                    class="absolute -bottom-[22%] left-1/2 aspect-square w-[55%] -translate-x-1/2 rounded-full bg-orange transition-transform duration-700 ease-out-expo group-hover:-translate-y-[8%]"
+                    aria-hidden="true"
+                  />
+                </div>
+              )}
+              <p class="mt-4 text-[17px] font-bold leading-tight tracking-[-0.03em] md:text-[20px]">
+                {m.name} <span class="font-medium text-muted">/ {m.role}</span>
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-16 flex flex-col gap-2 sm:flex-row md:mt-20" data-reveal>
+        <Button href="/#boka">Boka ett första samtal</Button>
+        <Button href={`mailto:${site.email}`} variant="light">Mejla oss</Button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-logo-3d][data-about]');
+  if (canvas) import('../scripts/logo3d').then((m) => m.initLogo3D(canvas, { dark: true, z: 12 }));
+</script>

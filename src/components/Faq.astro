@@ -1,64 +1,88 @@
 ---
+import SectionLabel from './SectionLabel.astro';
 import { site } from '../data/site';
 
 const faqs = [
   {
-    q: 'Hur lång tid tar det?',
-    a: 'Själva bygget tar oftast 4–20 timmar beroende på lösning. Vi driver Sandside vid sidan av skolan, så räkna med en till några veckor från första mötet till färdig lösning.',
+    q: 'Hur skiljer sig er chattbot från vanliga chattbottar?',
+    a: 'Vanliga chattbottar följer färdiga knappar och manus. Vår chattbot förstår frågan även när kunden skriver med egna ord, och svarar utifrån er information. Ungefär som en kollega som har läst allt på er hemsida.',
+  },
+  {
+    q: 'Hur ser ni till att chattbotten inte hittar på svar?',
+    a: 'Botten får bara svara utifrån det ni har godkänt, till exempel er hemsida, prislista och regler. Hittar den inget svar säger den det och erbjuder att skicka frågan vidare till er. Ni testar botten på riktiga frågor innan den går live.',
+  },
+  {
+    q: 'Vad händer när chattbotten inte kan svara på en fråga?',
+    a: 'Den ber kunden om namn och kontaktuppgifter och skickar frågan vidare till er, så att ni kan höra av er. Kunden får veta att en människa återkommer.',
+  },
+  {
+    q: 'Hur snabbt kan ni sätta upp en chattbot åt oss?',
+    a: 'Själva bygget tar oftast några arbetsdagar. Eftersom vi också går i skolan brukar det ta en till några veckor från första mötet till att botten finns på er hemsida.',
+  },
+  {
+    q: 'Behöver vi kunna något tekniskt?',
+    a: 'Nej. Vi sätter upp allt och lägger in chattbotten på er hemsida. Ni får en skriftlig instruktion, och vi följer upp efter en vecka för att se att allt fungerar.',
+  },
+  {
+    q: 'Kan vi ändra vad chattbotten svarar?',
+    a: 'Ja. Ändras priser, öppettider eller regler uppdaterar vi informationen som botten svarar utifrån. Säg bara till.',
   },
   {
     q: 'Vad kostar det?',
-    a: 'En chattbot kostar 8 000 kr, en gång. Vi sätter upp den i ert eget konto, så ni har full kontroll och betalar inga månadsavgifter till oss. Driften av AI och verktyg betalar ni direkt till leverantören. Andra lösningar får ett fast pris efter första mötet.',
-  },
-  {
-    q: 'Märker kunderna att det är en AI?',
-    a: 'Ja, den säger det själv. Det är ärligt, och de flesta bryr sig mest om att få svar direkt i stället för att vänta till nästa vardag.',
-  },
-  {
-    q: 'Vad händer om botten inte kan svara?',
-    a: 'Då säger den det och hänvisar till er personal. Den är instruerad att bara svara utifrån er information, så den hittar inte på saker om er verksamhet.',
-  },
-  {
-    q: 'Vem äger botten och våra data?',
-    a: 'Ni. Botten installeras i ert eget konto, så ni äger era data och ert avtal med leverantören. Vi bygger med testdata och tillfällig åtkomst.',
-  },
-  {
-    q: 'Blir vi låsta till er?',
-    a: 'Nej. Vi bygger med vanliga verktyg som n8n och WordPress, så en annan utvecklare kan ta över om det skulle behövas.',
-  },
-  {
-    q: 'Ni är unga. Varför ska vi välja er?',
-    a: 'Vi kan de nya AI-verktygen och har låga kostnader, så ni slipper byråpriser. Vi gör alltid upp om vad vi bygger och vad det kostar innan vi börjar, och ni testar lösningen innan vi lämnar över den.',
-  },
-  {
-    q: 'Kan vi ändra vad den säger?',
-    a: 'Ja. Säg till så uppdaterar vi den, till exempel med nya priser, öppettider eller erbjudanden.',
+    a: `Det beror på vilken plan ni väljer, se priserna ovan. Ni får alltid veta vad det kostar innan vi börjar. Har ni frågor kan ni mejla ${site.email}.`,
   },
 ];
 ---
 
-<section id="fragor" class="section">
-  <div class="wrap grid gap-12 md:grid-cols-12">
-    <div class="md:col-span-5">
-      <h2 class="h2">Vanliga frågor</h2>
-      <p class="lead mt-5 max-w-[36ch]">
-        Hittar du inte svaret? Fråga {site.bot.name} nere i hörnet, eller mejla <a href={`mailto:${site.email}`} class="underline decoration-ink/25 underline-offset-4 hover:decoration-sun">{site.email}</a>.
-      </p>
-    </div>
-    <div class="md:col-span-7">
-      {
-        faqs.map((f) => (
-          <details class="group border-b border-ink/10 first:border-t" name="faq">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-[18px] font-medium tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
-              {f.q}
-              <span class="grid size-8 shrink-0 place-items-center rounded-full border border-ink/15 transition-all duration-300 group-open:rotate-45 group-open:border-ink group-open:bg-ink group-open:text-white" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 1v10M1 6h10" /></svg>
-              </span>
-            </summary>
-            <p class="max-w-[60ch] pb-6 pr-12 text-[16px] leading-relaxed text-ink/70">{f.a}</p>
-          </details>
-        ))
-      }
+<section id="faq" class="py-24 md:py-[100px]">
+  <div class="wrap">
+    <SectionLabel text="FAQ" />
+    <div class="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_816px] lg:gap-6">
+      <h2 class="h2" data-reveal>Vanliga frågor</h2>
+
+      <ul class="space-y-4" data-faq>
+        {
+          faqs.map((f, i) => (
+            <li class="faq-item cut-br bg-surface [--cut:14px]" data-reveal style={`--d:${i * 50}ms`}>
+              <h3>
+                <button
+                  type="button"
+                  class="flex w-full items-center justify-between gap-6 px-5 py-5 text-left text-[18px] font-medium leading-[1.4] tracking-[-0.01em] md:px-6 md:py-[25px] md:text-[22px]"
+                  aria-expanded="false"
+                  aria-controls={`faq-${i}`}
+                  id={`faq-q-${i}`}
+                >
+                  {f.q}
+                  <span class="faq-plus grid size-8 shrink-0 place-items-center rounded-[3px]" aria-hidden="true">
+                    <svg viewBox="0 0 12 12" class="size-3" fill="none">
+                      <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" />
+                    </svg>
+                  </span>
+                </button>
+              </h3>
+              <div class="faq-panel" id={`faq-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+                <div>
+                  <p class="max-w-[680px] px-5 pb-6 text-[16px] leading-[1.6] text-ink/75 md:px-6 md:text-[17px]">{f.a}</p>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq] .faq-item').forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>('button')!;
+    const panel = item.querySelector<HTMLElement>('.faq-panel')!;
+    panel.inert = true;
+    btn.addEventListener('click', () => {
+      const open = !item.classList.contains('is-open');
+      item.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      panel.inert = !open;
+    });
+  });
+</script>

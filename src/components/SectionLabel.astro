@@ -1,0 +1,17 @@
+---
+// Linjen med det korta strecket och etiketten under, t.ex. "/PRISER".
+// Texten "scramblar" fram när den kommer in i bild (se scripts/main.ts).
+interface Props {
+  text: string;
+  dark?: boolean;
+  class?: string;
+}
+const { text, dark = false, class: cls = '' } = Astro.props;
+---
+
+<div class:list={['label-block', cls]} data-reveal>
+  <div class:list={['rule', dark && 'rule-dark']}></div>
+  <p class:list={['mono mt-3', dark ? 'text-white/60' : 'text-ink']}>
+    <span class="sr-only">{text}</span><span aria-hidden="true" data-scramble>/{text}</span>
+  </p>
+</div>
